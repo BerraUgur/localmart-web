@@ -1,0 +1,67 @@
+<header>
+  <div>
+      <div class="l">
+          <a href="/home" class="logo">
+              <img src="../assets/images/logo.jpg" alt="">
+          </a>
+      </div>
+      <div class="c">
+          <div class="top">
+              <a href="#home" class="logo">
+                  <img src="../assets/images/logo.jpg" alt="">
+                  <span>YAKINIMDAKİLER</span>
+              </a>
+              <button class="toggle-mobile-header"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-xicon w-4 h-4 text-muted-foreground"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+          </div>
+          <nav>
+              <ul>
+                  <li><a routerLink="/">Anasayfa</a></li>
+                  <li><a routerLink="/products">Ürünler</a></li>
+                  <li *ngIf="currentRole == 'Admin'" class="line"></li>
+                  <li *ngIf="currentRole == 'Admin'">
+                    <a href="">Admin</a>
+                    <div>
+                      <div>
+                        <ul>
+                          <li><a routerLink="/user-list">Kullanıcılar</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                  <li *ngIf="currentRole == 'Seller'" class="line"></li>
+                  <li *ngIf="currentRole == 'Seller'">
+                    <a href="">Satıcı</a>
+                    <div>
+                      <div>
+                        <ul>
+                          <li><a routerLink="/add-product">Ürün Ekle</a></li>
+                          <li><a routerLink="/my-products">Ürünlerim</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                  <li *ngIf="!isVisitor"><a routerLink="/my-orders">Siparişlerim</a></li>
+              </ul>
+          </nav>
+      </div>
+      <div class="r">
+          <span title="{{ currentRoleText }}">{{ currentUser?.username}}</span>
+          <button *ngIf="!isLogging" routerLink="/register" class="btn btn-black-outlined">Kayıt Ol</button>
+          <button *ngIf="!isLogging" routerLink="/login" class="btn btn-main">Giriş Yap</button>
+          <button *ngIf="isLogging" class="btn btn-main" (click)="logOut()"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+          <button routerLink="/my-basket" class="basket-btn"><i class="fa-solid fa-basket-shopping"></i></button>
+          <!-- <button class="show-mobile toggle-mobile-header"><svg data-v-68e82aac="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon cursor-pointer rounded-lg" type="button" aria-haspopup="dialog" aria-expanded="false" data-state="closed"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button> -->
+      </div>
+      <div class="filter toggle-mobile-header"></div>
+  </div>
+</header>
+
+
+<main class="fill">
+  <router-outlet />
+</main>
+
+
+<footer>
+  2024 &copy; Tüm Hakları Saklıdır
+</footer>

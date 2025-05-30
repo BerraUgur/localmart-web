@@ -1,0 +1,72 @@
+
+<section class="dp dpy-half">
+  <div class="bido-container">
+      <div class="header-template">
+          <h2>Ürün Güncelle</h2>
+      </div>
+      <form [formGroup]="productForm" (ngSubmit)="updateProduct()" class="form-wrapper limit">
+          <input style="display: none;" type="number" id="sellerUserId" formControlName="sellerUserId" value="{{currentUserId}}">
+          <div class="__3">
+            <div class="bd-input">
+              <label for="name">Ürün Adı:</label>
+              <div>
+                <input type="text" id="name" formControlName="name">
+              </div>
+            </div>
+            <div class="bd-input">
+              <label for="discountedPrice">Ürün Fiyatı:</label>
+              <div>
+                <input type="number" id="discountedPrice" formControlName="discountedPrice">
+              </div>
+            </div>
+            <div class="bd-input">
+              <label for="price">Eski Fiyat:</label>
+              <div>
+                <input type="number" id="price" formControlName="price">
+              </div>
+            </div>
+          </div>
+          <div class="bd-input">
+            <label for="description">Ürün Açıklaması:</label>
+            <div>
+              <textarea id="description" formControlName="description"></textarea>
+            </div>
+          </div>
+          <div class="__3">
+            <div class="bd-input">
+              <label for="stock">Ürün Stok Adet:</label>
+              <div>
+                <input type="number" id="stock" formControlName="stock">
+              </div>
+            </div>
+            <div class="bd-input">
+              <label for="city">Şehir:</label>
+              <div>
+                <input type="text" id="city" formControlName="city">
+              </div>
+            </div>
+            <div class="bd-input">
+              <label for="district">İlçe:</label>
+              <div>
+                <input type="text" id="district" formControlName="district">
+              </div>
+            </div>
+          </div>
+          <div class="__2">
+            <div class="bd-input">
+              <label for="mainImage">Ana Görsel:</label>
+              <div>
+                <input type="file" id="mainImage" (change)="onMainImageSelected($event)">
+              </div>
+            </div>
+            <div class="bd-input">
+              <label for="images">Diğer Görseller:</label>
+              <div>
+                <input type="file" id="images" multiple (change)="onImagesSelected($event)">
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-main btn-lg" type="submit" [disabled]="productForm.invalid">Güncelle</button>
+      </form>
+  </div>
+</section>

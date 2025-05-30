@@ -1,0 +1,34 @@
+
+<section class="dp dpy-half">
+    <div class="bido-container">
+        <div *ngIf="users.length > 0;">
+            <div class="bd-table">
+                <div class="h">
+                    <div>Ad Soyad</div>
+                    <div>Kullanıcı Adı</div>
+                    <div>Mail</div>
+                    <div>Telefon</div>
+                    <div>Rol</div>
+                    <div></div>
+                </div>
+                <div class="b">
+                    <div *ngFor="let user of users">
+                        <div>{{ user.firstName }} {{ user.lastName }}</div>
+                        <div>{{ user.username }}</div>
+                        <div>{{ user.email }}</div>
+                        <div>{{ user.phoneNumber }}</div>
+                        <div>{{ user.role == 1 ? 'Kullanıcı' : user.role == 2 ? 'Satıcı' : user.role == 3 ? 'Admin' : ''}}</div>
+                        <div>
+                            <button class="btn btn-red" (click)="deleteUser(user.id)">Sil</button>
+                            <button class="btn btn-main" [routerLink]="['/user-update', user.id]">Güncelle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <ng-template #noUsers>
+        <p>Hiçbir kullanıcı mevcut değil.</p>
+        </ng-template>
+    </div>
+</section>

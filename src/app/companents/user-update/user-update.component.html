@@ -1,0 +1,54 @@
+<section class="dp dpy-half">
+    <div class="bido-container">
+        <div class="header-template">
+            <h2>Kullanıcı Güncelle</h2>
+        </div>
+          <form [formGroup]="userForm" (ngSubmit)="updateUser()" class="form-wrapper limit">
+            <div class="__3">
+              <div class="bd-input">
+                <label for="firstName">Ad:</label>
+                <div>
+                  <input type="text" id="firstName" formControlName="firstName">
+                </div>
+              </div>
+              <div class="bd-input">
+                <label for="lastName">Soyad:</label>
+                <div>
+                  <input type="text" id="lastName" formControlName="lastName">
+                </div>
+              </div>
+              <div class="bd-input">
+                <label for="username">Kullanıcı Adı</label>
+                <div>
+                  <input type="text" id="username" formControlName="username">
+                </div>
+              </div>
+            </div>
+            <div class="__3">
+              <div class="bd-input">
+                <label for="email">Email:</label>
+                <div>
+                  <input type="email" id="email" formControlName="email">
+                </div>
+              </div>
+              <div class="bd-input">
+                <label for="phoneNumber">Telefon</label>
+                <div>
+                  <input type="text" id="phoneNumber" formControlName="phoneNumber">
+                </div>
+              </div>
+              <div class="bd-input">
+                <label for="role">Rol:</label>
+                <div>
+                  <select name="" id="role" formControlName="role">
+                      <option value="1">Kullanıcı</option>
+                      <option value="2">Satıcı</option>
+                      <option value="3">Admin</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-main btn-lg" type="submit" [disabled]="userForm.invalid">Güncelle</button>
+        </form>
+    </div>
+  </section>

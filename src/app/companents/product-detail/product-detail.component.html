@@ -1,0 +1,122 @@
+<!-- <p>product-detail works!</p>
+
+<h2>{{ product.name }}</h2>
+<img src="http://localhost:5203{{ product.mainImage }}" alt="{{ product.name }}" width="150">
+
+<p><strong>Fiyat:</strong> {{ product.price }}</p>
+<p><strong>İndirimsiz Fiyat:</strong> {{ product.discountedPrice }}</p>
+<p><strong>Stok Adedi:</strong> {{ product.stock }}</p>
+<p><strong>Açıklama:</strong> {{ product.description }}</p>
+<p><strong>Konum:</strong> {{ product.city }}, {{ product.district }}</p>
+
+<div>
+    <strong>Diğer Görseller:</strong>
+    <div *ngFor="let image of product.images">
+        <img src="http://localhost:5203/{{ image }}" alt="{{ product.name }}" width="100">
+    </div>
+</div>
+
+<button>Delete</button>
+<button>Update</button>
+
+<hr> -->
+
+<section class="dp dpy">
+  <div class="bido-container">
+      <div class="bd-wrapper-2">
+          <div class="l">
+              <div class="content-template-3">
+                  <div class="main-img">
+                      <div class="swiper product-main-imgs">
+                          <div class="swiper-wrapper">
+                              <div class="swiper-slide"><div class="img"><img [src]="'http://localhost:5203' + product?.mainImage" alt="{{ product?.name }}" width="150"></div></div>
+                              <div *ngFor="let image of product?.images" [hidden]="!image" class="swiper-slide"><div class="img"><img [src]="'http://localhost:5203/' + image" alt="{{ product?.name }}" width="100"></div></div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="other-imgs">
+                      <div class="swiper product-other-imgs">
+                          <div class="swiper-wrapper">
+                              <div class="swiper-slide active"><div class="img"><img [src]="'http://localhost:5203' + product?.mainImage" alt="{{ product?.name }}" width="150"></div></div>
+                              <div *ngFor="let image of product?.images" [hidden]="!image" class="swiper-slide"><div class="img {{!image ? 'hide' : ''}}"><img [src]="'http://localhost:5203/' + image" alt="{{ product?.name }}" width="100"></div></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="r">
+              <div class="content-template-4">
+                  <h1>{{ product?.name }}</h1>
+                  <p>{{ product?.description }}</p>
+                  <div class="infos">
+                    <span class="location btn btn-black">{{ product?.district }} / {{ product?.city }}</span>
+                    <!-- <span>{{ product?.stock }} Adet</span> -->
+                  </div>
+                  <div class="phone">
+                    <label for="">İletişim Numarası: </label>
+                    <a href="tel:{{ seller?.phoneNumber }}">{{ seller?.phoneNumber }}</a>
+                  </div>
+                  <div class="price">
+                    <del *ngIf="product?.price">{{ product?.price }} TL</del>
+                    <strong *ngIf="product?.discountedPrice">{{ product?.discountedPrice }} TL</strong>
+                  </div>
+                  <button class="add-basket btn btn-lg btn-main" (click)="addBasket( product?.id)">Sepete Ekle</button>
+
+                  <br><br>
+                  <div *ngIf="currentUserId == product?.sellerUserId" class="btns-area">
+                    <button class="btn btn-main btn-main" [routerLink]="['/product-update', product?.id]">Güncelle</button>
+                    <button class="btn btn-main btn-red" (click)="deleteProduct(product?.id)">Ürünü Sil</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <br><br><br><br>
+      
+      <div>
+        <h3 class="headline">Yorumlar</h3>
+        <br><br>
+        <div class="bd-input">
+          <div>
+            <textarea placeholder="Yorumunuz Yazınız..." name="" id="" [(ngModel)]="comment"></textarea>
+          </div>
+        </div>
+        <br>
+        <button class="btn btn-main ml-auto" (click)="addComment()">Gönder</button>
+        
+        <br><br><br>
+        
+        <div class="bd-wrapper-3" *ngIf="comments?.length; else noComments">
+          <div class="content-template-5" *ngFor="let comment of comments">
+              <div class="img">
+                  <div>{{ capitalizeFirstLetter(comment.user?.username) }}{{ capitalizeFirstLetter(comment.user?.lastName) }}</div>
+              </div>
+              <div class="detail">
+                  <div class="comment-area">
+                      <div class="author">
+                          <strong>{{ comment.user?.username }}</strong>
+                      </div>
+                      <div class="comment">
+                          <p>{{ comment.content }}</p>
+                      </div>
+                  </div>
+                  <div class="btns-area right">
+                    <button class="btn btn-red btn-square" (click)="deleteComment(comment.id!)"><i class="fa-solid fa-trash-can"></i></button>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+        <ng-template #noComments>
+          <p>Bu ürüne henüz yorum yapılmamıştır.</p>
+        </ng-template>
+      </div>
+      
+      <div *ngIf="product; else noProduct">
+      </div>
+        
+        <ng-template #noProduct>
+          <p>Product not found.</p>
+        </ng-template>
+  </div>
+</section>

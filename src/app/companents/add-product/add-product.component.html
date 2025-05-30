@@ -1,0 +1,72 @@
+
+
+<section class="dp dpy-half">
+    <div class="bido-container">
+        <div class="header-template">
+            <h2>Ürün Ekle</h2>
+        </div>
+        <div class="form-wrapper limit">
+            <div class="__2">
+                <div class="bd-input">
+                    <label for="mainImage">Ana Görsel:</label>
+                    <div>
+                        <input type="file" id="mainImage" (change)="onSingleFileSelected($event)" [(ngModel)]="mainImage">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <label for="images">Diğer Görseller:</label>
+                    <div>
+                        <input type="file" id="images" multiple (change)="onMultipleFilesSelected($event)"  [(ngModel)]="images">
+                    </div>
+                </div>
+            </div>
+            <div class="__4">
+                <div class="bd-input">
+                    <label for="name">Ürünün Adı:</label>
+                    <div>
+                        <input type="text" id="name" [(ngModel)]="name">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <label for="stock">Stok Adedi:</label>
+                    <div>
+                        <input type="number" id="stock" [(ngModel)]="stock">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <label for="discountedPrice">Ürün Fiyatı:</label>
+                    <div>
+                        <input type="text" id="discountedPrice" [(ngModel)]="discountedPrice">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <label for="price">Eski Fiyat:</label>
+                    <div>
+                        <input type="text" id="price" [(ngModel)]="price">
+                    </div>
+                </div>
+            </div>
+            <div class="bd-input">
+                <label for="description">Ürün Açıklaması:</label>
+                <div>
+                    <textarea id="description" [(ngModel)]="description"></textarea>
+                </div>
+            </div>
+            <div class="__2">
+                <div class="bd-input">
+                    <label for="city">İl:</label>
+                    <div>
+                        <input type="text" id="city" [(ngModel)]="city">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <label for="district">İlçe:</label>
+                    <div>
+                        <input type="text" id="district" [(ngModel)]="district">
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-main btn-lg" (click)="saveProduct()">Ürünü Kaydet</button>
+        </div>
+    </div>
+</section>
