@@ -1,0 +1,117 @@
+<section class="dp dpy">
+  <div class="bido-container">
+    <div class="bd-wrapper-2">
+      <div class="l">
+        <div class="content-template-3">
+          <!-- Main product images -->
+          <div class="main-img">
+            <div class="swiper product-main-imgs">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div class="img">
+                    <img [src]="'http://localhost:5203' + product?.mainImage" alt="{{ product?.name }}" width="150">
+                  </div>
+                </div>
+                <div *ngFor="let image of product?.images" [hidden]="!image" class="swiper-slide">
+                  <div class="img">
+                    <img [src]="'http://localhost:5203/' + image" alt="{{ product?.name }}" width="100">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Thumbnail images -->
+          <div class="other-imgs">
+            <div class="swiper product-other-imgs">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide active">
+                  <div class="img">
+                    <img [src]="'http://localhost:5203' + product?.mainImage" alt="{{ product?.name }}" width="150">
+                  </div>
+                </div>
+                <div *ngFor="let image of product?.images" [hidden]="!image" class="swiper-slide">
+                  <div class="img" [ngClass]="{'hide': !image}">
+                    <img [src]="'http://localhost:5203/' + image" alt="{{ product?.name }}" width="100">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="r">
+        <div class="content-template-4">
+          <h1>{{ product?.name }}</h1>
+          <p>{{ product?.description }}</p>
+          <div class="infos">
+            <span class="location btn btn-black">{{ product?.district }} / {{ product?.city }}</span>
+          </div>
+          <div class="phone">
+            <label>Contact Number: </label>
+            <a href="tel:{{ seller?.phoneNumber }}">{{ seller?.phoneNumber }}</a>
+          </div>
+          <div class="price">
+            <del *ngIf="product?.price">{{ product?.price }} TL</del>
+            <strong *ngIf="product?.discountedPrice">{{ product?.discountedPrice }} TL</strong>
+          </div>
+          <button *ngIf="currentRole !== 'Admin'" class="add-basket btn btn-lg btn-main mb-5" (click)="addBasket(product?.id)">Add to Basket</button>
+          <!-- Seller action buttons -->
+          <div *ngIf="currentUserId === product?.sellerUserId || currentRole === 'Admin'" class="btns-area">
+            <button class="btn btn-main mr-2" [routerLink]="['/product-update', product?.id]">Update</button>
+            <button class="btn btn-red" (click)="deleteProduct(product?.id)">Delete Product</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br><br><br><br>
+
+    <div>
+      <h3 class="headline">Comments</h3>
+      <br><br>
+      <div class="bd-input">
+        <div>
+          <textarea placeholder="Write your comment..." name="" id="" [(ngModel)]="comment"></textarea>
+        </div>
+      </div>
+      <br>
+      <button class="btn btn-main ml-auto" (click)="addComment()">Send</button>
+
+      <br><br><br>
+
+      <div class="bd-wrapper-3" *ngIf="comments?.length; else noComments">
+        <div class="content-template-5" *ngFor="let comment of comments">
+          <div class="img">
+            <div>{{ capitalizeFirstLetter(comment.user?.username) }}{{ capitalizeFirstLetter(comment.user?.lastName) }}
+            </div>
+          </div>
+          <div class="detail">
+            <div class="comment-area">
+              <div class="author">
+                <strong>{{ comment.user?.username }}</strong>
+              </div>
+              <div class="comment">
+                <p>{{ comment.content }}</p>
+              </div>
+            </div>
+            <div class="btns-area right">
+              <button class="btn btn-red btn-square" (click)="deleteComment(comment.id!)"><i
+                  class="fa-solid fa-trash-can"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noComments>
+        <p>No comments have been made for this product yet.</p>
+      </ng-template>
+    </div>
+
+    <div *ngIf="product; else noProduct">
+    </div>
+
+    <ng-template #noProduct>
+      <p>Product not found.</p>
+    </ng-template>
+  </div>
+</section>

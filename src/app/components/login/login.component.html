@@ -1,0 +1,26 @@
+<div class="login-wrapper dp">
+    <div>
+        <div>
+            <h1 class="headline gradient-txt">Login</h1>
+            <div class="form-wrapper">
+                <div class="bd-input">
+                    <div>
+                        <input type="text" id="username" [(ngModel)]="username" placeholder="Username">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <div>
+                        <input type="password" id="password" [(ngModel)]="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="double">
+                    <a class="link-btn" href="/forgot-password">Forgot Password</a>
+                </div>
+                <button (click)="login()">Login</button>
+                <a href="register" class="redirect-link">Register</a>
+            </div>
+            <div class="abs-1"></div>
+            <div class="abs-2"></div>
+        </div>
+    </div>
+</div>

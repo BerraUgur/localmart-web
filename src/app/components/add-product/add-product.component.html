@@ -1,0 +1,72 @@
+<section class="dp dpy-half">
+    <div class="bido-container">
+        <div class="header-template">
+            <h2>Add Product</h2>
+        </div>
+        <div class="form-wrapper limit">
+            <div class="__2">
+                <div class="bd-input">
+                    <label for="mainImage">Main Image:</label>
+                    <div>
+                        <input type="file" id="mainImage" (change)="onSingleFileSelected($event)"
+                            [(ngModel)]="mainImage">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <label for="images">Other Images:</label>
+                    <div>
+                        <input type="file" id="images" multiple (change)="onMultipleFilesSelected($event)"
+                            [(ngModel)]="images">
+                    </div>
+                </div>
+            </div>
+            <div class="__4">
+                <div class="bd-input">
+                    <label for="name">Product Name:</label>
+                    <div>
+                        <input type="text" id="name" [(ngModel)]="name">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <label for="stock">Stock Quantity:</label>
+                    <div>
+                        <input type="number" id="stock" [(ngModel)]="stock">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <label for="discountedPrice">Product Price:</label>
+                    <div>
+                        <input type="number" id="discountedPrice" [(ngModel)]="discountedPrice">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <label for="price">Old Price:</label>
+                    <div>
+                        <input type="number" id="price" [(ngModel)]="price">
+                    </div>
+                </div>
+            </div>
+            <div class="bd-input">
+                <label for="description">Product Description:</label>
+                <div>
+                    <textarea id="description" [(ngModel)]="description"></textarea>
+                </div>
+            </div>
+            <div class="__2">
+                <div class="bd-input">
+                    <label for="city">City:</label>
+                    <div>
+                        <input type="text" id="city" [(ngModel)]="city">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <label for="district">District:</label>
+                    <div>
+                        <input type="text" id="district" [(ngModel)]="district">
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-main btn-lg" (click)="saveProduct()">Save Product</button>
+        </div>
+    </div>
+</section>

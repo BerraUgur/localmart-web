@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'market_frontend' title`, () => {
+  it(`should have the 'Localmart' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('market_frontend');
+  expect(app.title).toEqual('Localmart');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, market_frontend');
+  expect(compiled.querySelector('h1')?.textContent).toContain('Hello, Localmart');
   });
 });

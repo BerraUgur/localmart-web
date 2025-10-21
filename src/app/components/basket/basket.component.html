@@ -1,0 +1,81 @@
+<section class="dp dpy-half">
+    <div class="bido-container">
+        <div>
+            <div *ngIf="products.length > 0;">
+                <div class="bd-table basket-table">
+                    <div class="h">
+                        <div></div>
+                        <div>Product Info</div>
+                        <div>Address</div>
+                        <div>Phone</div>
+                        <div>Price</div>
+                    </div>
+                    <div class="b">
+                        <div *ngFor="let product of products">
+                            <div>
+                                <img [src]="'http://localhost:5203' + product?.mainImage" alt="{{ product?.name }}">
+                            </div>
+                            <div>
+                                <strong>{{ product?.name }}</strong>
+                                <p>{{ product?.description }}</p>
+                            </div>
+                            <div>{{ product?.district }} / {{ product?.city }}</div>
+                            <div>{{ product?.sellerPhone }}</div>
+                            <div>{{ product?.discountedPrice }} TL</div>
+                            <div>
+                                <button class="btn btn-red" (click)="deleteProductBasket(product.id)">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-wrapper full">
+                    <div class="__3 mt-10">
+                        <div class="bd-input">
+                            <label for="firstName">City</label>
+                            <div>
+                                <input type="text" id="city" [(ngModel)]="city">
+                            </div>
+                        </div>
+                        <div class="bd-input">
+                            <label for="firstName">District</label>
+                            <div>
+                                <input type="text" id="district" [(ngModel)]="district">
+                            </div>
+                        </div>
+                        <div class="bd-input">
+                            <label for="firstName">Postal Code</label>
+                            <div>
+                                <input type="text" id="postalcode" [(ngModel)]="postalCode">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="__2">
+                        <div class="bd-input">
+                            <label for="firstName">Full Address</label>
+                            <div>
+                                <textarea name="openAddress" [(ngModel)]="openAddress" id=""
+                                    placeholder="Neighborhood, Street, Building, Floor, Apartment"></textarea>
+                            </div>
+                        </div>
+                        <div class="bd-input">
+                            <label for="description">Order Note:</label>
+                            <div>
+                                <textarea id="description" [(ngModel)]="note"
+                                    placeholder="Is there anything you want to mention about your order?"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-payment">
+                    <span>Total Price: <strong>{{totalPrice}} TL</strong></span>
+                    <button class="btn btn-main btn-lg" (click)="approveBasket()">Approve Basket</button>
+                </div>
+            </div>
+            <div *ngIf="products.length == 0;">
+                <h3>Your basket is empty.</h3>
+            </div>
+        </div>
+    </div>
+</section>

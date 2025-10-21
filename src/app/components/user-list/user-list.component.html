@@ -1,0 +1,33 @@
+<section class="dp dpy-half">
+    <div class="bido-container">
+        <div *ngIf="users.length > 0">
+            <div class="bd-table">
+                <div class="h">
+                    <div>Full Name</div>
+                    <div>Username</div>
+                    <div>Email</div>
+                    <div>Phone</div>
+                    <div>Role</div>
+                    <div></div>
+                </div>
+                <div class="b">
+                    <div *ngFor="let user of users">
+                        <div>{{ user.firstName }} {{ user.lastName }}</div>
+                        <div>{{ user.username }}</div>
+                        <div>{{ user.email }}</div>
+                        <div>{{ user.phoneNumber }}</div>
+                        <div>{{ user.role == 1 ? 'User' : user.role == 2 ? 'Seller' : user.role == 3 ? 'Admin' : ''}}
+                        </div>
+                        <div>
+                            <button class="btn btn-red" (click)="deleteUser(user.id)">Delete</button>
+                            <button class="btn btn-main" [routerLink]="['/user-update', user.id]">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #noUsers>
+            <p>No users available.</p>
+        </ng-template>
+    </div>
+</section>

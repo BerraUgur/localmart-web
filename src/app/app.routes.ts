@@ -1,19 +1,21 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './companents/login/login.component';
-import { RegisterComponent } from './companents/register/register.component';
-import { AddProductComponent } from './companents/add-product/add-product.component';
-import { HomeComponent } from './companents/home/home.component';
-import { UserListComponent } from './companents/user-list/user-list.component';
-import { UserUpdateComponent } from './companents/user-update/user-update.component';
-import { ProductUpdateComponent } from './companents/product-update/product-update.component';
-import { ProductDetailComponent } from './companents/product-detail/product-detail.component';
-import { ProductsComponent } from './companents/products/products.component';
-import { MyProductsComponent } from './companents/my-products/my-products.component';
-import { BasketComponent } from './companents/basket/basket.component';
-import { MyOrdersComponent } from './companents/my-orders/my-orders.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { HomeComponent } from './components/home/home.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { UserUpdateComponent } from './components/user-update/user-update.component';
+import { ProductUpdateComponent } from './components/product-update/product-update.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { ProductsComponent } from './components/products/products.component';
+import { MyProductsComponent } from './components/my-products/my-products.component';
+import { BasketComponent } from './components/basket/basket.component';
+import { MyOrdersComponent } from './components/my-orders/my-orders.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 export const routes: Routes = [
-    { path: "", pathMatch: "full", component: HomeComponent},
+    { path: "", pathMatch: "full", component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'add-product', component: AddProductComponent },
@@ -24,5 +26,7 @@ export const routes: Routes = [
     { path: 'product-update/:id', component: ProductUpdateComponent },
     { path: 'product-detail/:id', component: ProductDetailComponent },
     { path: 'products', component: ProductsComponent },
-    { path: 'my-basket', component: BasketComponent},
+    { path: 'my-basket', component: BasketComponent },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
+    { path: 'reset-password', component: ResetPasswordComponent },
 ];

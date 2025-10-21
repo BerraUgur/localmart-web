@@ -1,0 +1,97 @@
+<section class="dp dpy-half">
+    <div class="bido-container">
+        <!-- Seller Orders Section -->
+        <div class="header-template">
+            <small>AS A SELLER</small>
+            <h2>Your Orders</h2>
+        </div>
+        <div class="bd-wrapper-4" *ngIf="incomingOrders.length > 0">
+            <div *ngFor="let order of incomingOrders" class="bd-table basket-table v2">
+                <div class="h">
+                    <div>Order No. = {{order.id}}</div>
+                    <div>Product Info</div>
+                    <div>Address Info</div>
+                    <div>Phone</div>
+                    <div>Price</div>
+                    <div>Order Status</div>
+                </div>
+                <div class="b">
+                    <div *ngFor="let item of order.orderItems">
+                        <div>
+                            <img [src]="'http://localhost:5203' + item.product.mainImage" alt="{{ item.product.name }}">
+                        </div>
+                        <div>
+                            <strong>{{ item.product.name }}</strong>
+                            <small><strong>{{ item.product.district }} / {{ item.product.city }}</strong></small>
+                            <span>{{ item.product.description }}</span>
+                        </div>
+                        <div>
+                            <strong>{{ order.address?.district }} / {{ order.address?.city }}</strong>
+                            <span>{{ order.address?.openAddress }}</span>
+                            <small><strong>Postal Code:</strong> {{ order.address?.postalCode }}</small>
+                            <small><strong>Note:</strong> {{ order.note }}</small>
+                        </div>
+                        <div>{{ item.product.sellerPhone }}</div>
+                        <div>{{ item.product.discountedPrice }} TL</div>
+                        <div>
+                            <!-- Order status buttons -->
+                            <button *ngIf="order.status == '1'" class="btn single btn-blue no-hover">Preparing...</button>
+                            <button *ngIf="order.status == '1'" class="btn btn-main" (click)="orderShipped(order)">Shipped</button>
+                            <button *ngIf="order.status == '2'" class="btn single btn-main no-hover">Shipped</button>
+                            <button *ngIf="order.status == '2'" class="btn btn-blue no-hover">Awaiting Delivery</button>
+                            <button *ngIf="order.status == '3'" class="btn btn-green no-hover">Delivered</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="incomingOrders.length === 0">
+            <h3>No Orders Found.</h3>
+        </div>
+        <!-- Buyer Orders Section -->
+        <div class="header-template">
+            <small>AS A BUYER</small>
+            <h2>Your Orders</h2>
+        </div>
+        <div class="bd-wrapper-4" *ngIf="orders.length > 0">
+                <div *ngFor="let order of orders" class="bd-table basket-table">
+                    <div class="h">
+                        <div>Order No. = {{order.id}}</div>
+                        <div>Product Info</div>
+                        <div>Address</div>
+                        <div>Phone</div>
+                        <div>Price</div>
+                        <div>Order Status</div>
+                    </div>
+                    <div class="b">
+                        <div *ngFor="let item of order.orderItems">
+                            <div>
+                                <img [src]="'http://localhost:5203' + item.product.mainImage"
+                                    alt="{{ item.product.name }}">
+                            </div>
+                            <div>
+                                <strong>{{ item.product.name }}</strong>
+                                <p>{{ item.product.description }}</p>
+                            </div>
+                            <div>{{ item.product.district }} / {{ item.product.city }}</div>
+                            <div>{{ item.product.sellerPhone }}</div>
+                            <div>{{ item.product.discountedPrice }} TL</div>
+                            <div>
+                                <button *ngIf="order.status == '1'"
+                                    class="btn btn-blue no-hover">Preparing...</button>
+
+                                <button *ngIf="order.status == '2'" class="btn single btn-blue no-hover">Shipped</button>
+                                <button *ngIf="order.status == '2'" class="btn btn-main"
+                                    (click)="orderDelivered(order)">I Received</button>
+
+                                <button *ngIf="order.status == '3'" class="btn btn-green no-hover">Received</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="orders.length == 0;">
+                <h3>No Orders Found.</h3>
+            </div>
+        </div>
+    </section>

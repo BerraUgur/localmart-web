@@ -1,0 +1,28 @@
+<section class="dp dpy">
+    <div class="bido-container">
+        <div class="header-template">
+            <h2>All My Products</h2>
+        </div>
+        <div class="bd-wrapper-1" *ngIf="products.length > 0;">
+            <a *ngFor="let product of products" routerLink="/product-detail/{{ product.id }}"
+                class="content-template-2">
+                <div class="img">
+                    <img src="http://localhost:5203{{ product.mainImage }}" alt="{{ product.name }}" width="150">
+                </div>
+                <div class="detail">
+                    <strong>{{ product.name }}</strong>
+                    <p>{{ product.description }}</p>
+                    <div class="price">
+                        <del *ngIf="product.price">{{ product.price }} TL</del>
+                        <strong *ngIf="product.discountedPrice">{{ product.discountedPrice }} TL</strong>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="" *ngIf="products.length == 0;">
+            <h3 class="text-center mb-10">You do not have any products yet</h3>
+            <button class="btn btn-main mx-auto" routerLink="/add-product">Add Product</button>
+        </div>
+    </div>
+</section>

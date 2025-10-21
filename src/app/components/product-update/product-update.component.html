@@ -1,0 +1,72 @@
+<section class="dp dpy-half">
+  <div class="bido-container">
+    <div class="header-template">
+      <h2>Update Product</h2>
+    </div>
+    <form [formGroup]="productForm" (ngSubmit)="updateProduct()" class="form-wrapper limit">
+      <!-- Hidden seller user id -->
+      <input style="display: none;" type="hidden" id="sellerUserId" formControlName="sellerUserId" [value]="currentUserId">
+      <div class="__3">
+        <div class="bd-input">
+          <label for="name">Product Name:</label>
+          <div>
+            <input type="text" id="name" formControlName="name">
+          </div>
+        </div>
+        <div class="bd-input">
+          <label for="discountedPrice">Product Price:</label>
+          <div>
+            <input type="number" id="discountedPrice" formControlName="discountedPrice">
+          </div>
+        </div>
+        <div class="bd-input">
+          <label for="price">Old Price:</label>
+          <div>
+            <input type="number" id="price" formControlName="price">
+          </div>
+        </div>
+      </div>
+      <div class="bd-input">
+        <label for="description">Product Description:</label>
+        <div>
+          <textarea id="description" formControlName="description"></textarea>
+        </div>
+      </div>
+      <div class="__3">
+        <div class="bd-input">
+          <label for="stock">Product Stock Quantity:</label>
+          <div>
+            <input type="number" id="stock" formControlName="stock">
+          </div>
+        </div>
+        <div class="bd-input">
+          <label for="city">City:</label>
+          <div>
+            <input type="text" id="city" formControlName="city">
+          </div>
+        </div>
+        <div class="bd-input">
+          <label for="district">District:</label>
+          <div>
+            <input type="text" id="district" formControlName="district">
+          </div>
+        </div>
+      </div>
+      <div class="__2">
+        <div class="bd-input">
+          <label for="mainImage">Main Image:</label>
+          <div>
+            <input type="file" id="mainImage" (change)="onMainImageSelected($event)">
+          </div>
+        </div>
+        <div class="bd-input">
+          <label for="images">Other Images:</label>
+          <div>
+            <input type="file" id="images" multiple (change)="onImagesSelected($event)">
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-main btn-lg" type="submit" [disabled]="productForm.invalid">Update</button>
+    </form>
+  </div>
+</section>

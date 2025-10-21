@@ -1,58 +1,61 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
-import { User } from './services/comment';
+import { User } from './models/comment';
+import { LoggerService } from './services/logger.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit{
-  title = 'market_frontend';
+
+export class AppComponent implements OnInit {
+  title = 'Localmart';
   isLogging = false;
-  currentRole:any = 1;
-  currentRoleText:any = '';
-  currentUserId?:Number | any;
-  currentUser?:User;
-  isVisitor:any = '';
+  currentRole: 'User' | 'Seller' | 'Admin' | '' = '';
+  currentRoleText = '';
+  currentUserId?: number;
+  currentUser?: User;
+  isVisitor = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) {
-  }
-  
-  ngOnInit() {
-    this.isLogging = this.authService.loggedIn()
-    this.currentRole = this.authService.getCurrentRoles()
-    console.log(this.currentRole)
-    if (this.currentRole == 'User') {
-      this.currentRoleText = 'Müşteri'
-    }else if (this.currentRole == 'Seller') {
-      this.currentRoleText = 'Satıcı'
-    }else if (this.currentRole == 'Admin') {
-      this.currentRoleText = 'Admin'
-    }else{
-      this.isVisitor = true
-    }
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private logger = inject(LoggerService);
 
-    
-    if(this.isLogging){
-      this.currentUserId = this.authService.getCurrentUserId()
-      this.authService.getUser(this.currentUserId).subscribe(user => {
-        this.currentUser = user
-        console.log(this.currentUser)
-      })
+  ngOnInit(): void {
+    this.isLogging = this.authService.loggedIn();
+    this.currentRole = this.authService.getCurrentRoles() as 'User' | 'Seller' | 'Admin' | '';
+    this.currentRoleText = this.getRoleText(this.currentRole);
+    this.isVisitor = !['User', 'Seller', 'Admin'].includes(this.currentRole);
+
+    if (this.isLogging) {
+      this.currentUserId = this.authService.getCurrentUserId();
+      this.authService.getUser(this.currentUserId).subscribe({
+        next: user => {
+          this.currentUser = user;
+        },
+        error: err => {
+          this.logger.error('Kullanıcı bilgisi alınamadı:', err);
+        }
+      });
     }
-    
   }
 
-  logOut(){
-    this.authService.logout()
-    this.router.navigate(['/']).then(c=>window.location.reload())
+  getRoleText(role: string): string {
+    switch (role) {
+      case 'User': return 'Müşteri';
+      case 'Seller': return 'Satıcı';
+      case 'Admin': return 'Admin';
+      default: return '';
+    }
+  }
+
+  logOut(): void {
+    this.authService.logout();
+    this.router.navigate(['/']).then(() => window.location.reload());
   }
 }

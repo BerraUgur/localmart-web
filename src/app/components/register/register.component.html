@@ -1,0 +1,43 @@
+<div class="login-wrapper dp">
+    <div>
+        <div>
+            <h1 class="headline gradient-txt">Register</h1>
+            <div class="form-wrapper">
+                <div class="bd-input">
+                    <div>
+                        <input type="text" id="firstName" [(ngModel)]="firstName" placeholder="First Name">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <div>
+                        <input type="text" id="lastName" [(ngModel)]="lastName" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <div>
+                        <input type="text" id="username" [(ngModel)]="username" placeholder="Username">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <div>
+                        <input type="text" id="email" [(ngModel)]="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <div>
+                        <input type="text" id="phoneNumber" [(ngModel)]="phoneNumber" placeholder="Phone Number">
+                    </div>
+                </div>
+                <div class="bd-input">
+                    <div>
+                        <input type="password" id="password" [(ngModel)]="password" placeholder="Password">
+                    </div>
+                </div>
+                <button (click)="register()">Register</button>
+                <a href="login" class="redirect-link">Login</a>
+            </div>
+            <div class="abs-1"></div>
+            <div class="abs-2"></div>
+        </div>
+    </div>
+</div>

@@ -8,7 +8,6 @@ html{
     scroll-behavior: smooth;
 }
 
-
 body{ 
     background-color: var(--white);
     color: var(--dark);
@@ -16,13 +15,6 @@ body{
     --main-clr: #ffd400;
     --main-clr-o: 255, 212, 0;
     --main-clr-txt: #000;
-
-    /* --main-clr-2: #f00;
-    --main-clr-2-o: 255, 0, 0; */
-
-
-    /* --light-gray: #141414;
-    --gray-border: #2c2824; */
 
     --border-clr: #e6eaee;
 
@@ -36,23 +28,17 @@ body{
     --max-w: 1200px;
 }
 
-
 ol, ul{ list-style: none;}
 a{ color: inherit; text-decoration: none;}
-
 
 body.no-transition *{
     transition: none !important;
 }
 
-
 .dp{ padding-left: 10px; padding-right: 10px;}
 .dpy{ padding-top: 130px; padding-bottom: 130px;}
 .dpy-half{ padding-top: 80px; padding-bottom: 80px;}
 .bido-container{ width: 100%; max-width: var(--max-w); margin: 0 auto;}
-
-
-
 
 /* ----------------------------------------------------------- */
 /* -------------------------- HEADER ------------------------- */
@@ -91,7 +77,6 @@ header > div .c nav > ul > li > div > div ul li{ width: 100%;}
 header > div .c nav > ul > li > div > div ul li a{ font-size: 13px; display: flex; flex-direction: column; padding: 15px 15px; gap: 3px; transition: all .2s ease; width: 100%; font-weight: 600;}
 header > div .c nav > ul > li > div > div ul li a:hover{ background-color: rgba(0, 0, 0, .025); padding-left: 20px;}
 header > div .c nav > ul > li > div > div ul li:not(:last-child) a{ border-bottom: 1px solid #eee;}
-/* header > div .c nav > ul > li > div > div ul li a:hover{ background-color: var(--main-clr); color: var(--black);} */
 header > div .c nav > ul > li > div > div ul li a strong{ font-size: 13px;}
 header > div .c nav > ul > li > div > div ul li a p{ font-size: 13px; font-weight: 400; line-height: 1.4;}
 header > div .c .bottom{  display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(255, 255, 255, .15); padding: 30px 35px 30px; width: 100%;}
@@ -101,24 +86,17 @@ header > div .c .bottom button svg{ stroke: var(--clr); height: 20px; width: 20p
 header > div .c .bottom button span{ color: var(--clr); transition: all .2s ease;}
 header > div .r{ display: flex; justify-content: flex-end; gap: 10px; padding-left: 10px; align-items: center;}
 header > div .r span{ line-height: 1; margin-right: 10px; display: inline-block;}
-/* header > div .r button{ --clr: var(--dark); height: 100%; padding: 0 15px; background-color: transparent; border: none; outline: none; cursor: pointer; transition: all .2s ease; border-radius: 5px; color: var(--clr); font-weight: 600; white-space: nowrap;}
-header > div .r button{ background-color: var(--main-clr); --clr: var(--black);}
-header > div .r button svg{ stroke: var(--clr); height: 22px; transition: all .2s ease;} */
 header > div .filter{ position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; background-color: rgba(0, 0, 0, .75); z-index: 50; opacity: 0; transition: all .3s ease; pointer-events: none;}
 header > div .r .basket-btn{ background-color: transparent; border: none; outline: none; font-size: 18px; color: #000; margin-left: 20px; cursor: pointer;}
 
 .ghost-header{ height: 100px;}
 
-
 footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-items: center; justify-content: center; width: 100%; z-index: 50; position: relative; border-top: 1px solid var(--border-clr); padding: 0 10px; text-align: center; background-color: var(--white); z-index: 20; box-shadow: 0 -10px 20px -10px rgba(0, 0, 0, .1);}
-
 
 .spacing-1{ padding-top: 100px;}
 
 .text-center{ text-align: center;}
 .mx-auto{ margin-left: auto; margin-right: auto;}
-
-
 
 .mb-1{ margin-bottom: 2px;}
 .mb-2{ margin-bottom: 4px;}
@@ -136,10 +114,7 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 .mt-10{ margin-top: 20px;}
 .mt-15{ margin-top: 30px;}
 
-
 .total-payment{ display: flex; flex-direction: column; align-items: flex-end; gap: 15px; margin-top: 50px;}
-
-
 
 @media screen and (min-width: 968px) {
     .show-mobile{ display: none;}
@@ -162,13 +137,7 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
     header > div .c nav > ul > li > div{ display: none;}
 }
 
-
-
-
 .fill{ min-height: calc(100dvh - (50px + 60px));}
-
-
-
 
 /* ----------------------------------------------------------- */
 /* ------------------------ TEMPLATES ------------------------ */
@@ -184,24 +153,15 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 
 .bd-wrapper-4{ display: flex; flex-direction: column; gap: 50px;}
 
-
-
-
 .content-template-1{ padding: 100px 0; position: relative;}
 .content-template-1 > div{ max-width: 800px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center;}
 .content-template-1 > div h1{ font-size: 52px; margin-bottom: 25px;}
-/* .content-template-1 > div h1 span{ background: -webkit-linear-gradient(45deg, var(--main-clr), #3b3405, var(--main-clr)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;} */
 .content-template-1 > div h1 span{ color: #9e8c11;}
 .content-template-1 > div p{ font-size: 16px; max-width: 600px; line-height: 1.5; font-weight: 600;}
 .content-template-1 > div .btns{ display: flex; margin-top: 50px;}
-/* .content-template-1 > div .btns button{ padding: 7px 30px; background-color: var(--main-clr); color: var(--black); border: 1px solid var(--main-clr); font-size: 15px; font-weight: 500; border-radius: 8px; letter-spacing: 1px; position: relative; cursor: pointer; transition: all .2s ease;}
-.content-template-1 > div .btns button:hover{ background-color: var(--black); color: var(--main-clr);} */
 .content-template-1 > div .btns button svg:nth-of-type(1){ position: absolute; left: calc(100% + 20px); width: 40px; height: auto; top: -35px; transform: rotate(-115deg); fill: var(--main-clr);}
 .content-template-1 > div .btns button svg:nth-of-type(2){ position: absolute; right: calc(100% + 20px); width: 40px; height: auto; top: -35px; fill: var(--main-clr);}
-/* .content-template-1 > div .btns button svg:nth-of-type(2){ transform: scaleX(-1) rotate(-115deg) translate(-4px, 6px);} */
 .content-template-1 > div .filter{ position: absolute; width: 100%; height: 200px; background-color: var(--main-clr); filter: blur(80px); left: 50%; top: 0; transform: translateX(-50%); z-index: -1; opacity: .5; max-width: 900px;}
-
-
 
 .content-template-2{ display: flex; flex-direction: column;}
 .content-template-2 .img{ aspect-ratio: .75; display: flex; position: relative; overflow: hidden;}
@@ -214,7 +174,6 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 .content-template-2 .detail > .price del{ opacity: .5; font-size: .8em;}
 .content-template-2 .detail > .price strong{ font-weight: 600; color: var(--main-clr);}
 
-
 .content-template-3{ display: flex; flex-direction: column; gap: 10px;}
 .content-template-3 .main-img{ width: 100%; aspect-ratio: 1; display: flex;}
 .content-template-3 [hidden]{ display: none !important;}
@@ -225,7 +184,6 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 .content-template-3 .other-imgs .img{ width: 100%; aspect-ratio: 1; border: 2px solid transparent; display: flex; padding: 2px; cursor: pointer;}
 .content-template-3 .other-imgs .active .img{ border-color: var(--main-clr);}
 .content-template-3 .other-imgs .img img{ width: 100%; height: 100%; object-fit: cover;}
-
 
 .content-template-4{}
 .content-template-4 h1{ font-size: 32px; font-weight: 600;}
@@ -239,7 +197,6 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 .content-template-4 > .price strong{ font-weight: 600; color: var(--main-clr);}
 .content-template-4 .add-basket{ width: 100%; margin-top: 20px;}
 
-
 .content-template-5{ display: flex; gap: 20px;}
 .content-template-5 .img{ min-width: fit-content;}
 .content-template-5 .img img{}
@@ -252,22 +209,11 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 .content-template-5 .detail .comment p{ margin-top: 7px; font-size: 14px; line-height: 1.6;}
 .content-template-5 .detail .comment-area{ width: 100%;}
 
-
-
-
 .header-template{ display: flex; flex-direction: column; text-align: center; margin-bottom: 80px;}
 .header-template.left{ text-align: left;}
 .header-template small{ color: var(--main-clr); font-size: 15px; font-weight: 500; display: inline-block; margin-bottom: 10px;}
 .header-template h2{ font-size: 38px; font-weight: 600;}
 .header-template p{ margin-top: 15px; font-size: 15px; font-weight: 400; opacity: .75;}
-
-
-
-
-
-
-
-
 
 .login-wrapper{ width: 100%; min-height: calc(100dvh - 110px); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 50px; padding-top: 50px; padding-bottom: 50px;}
 .login-wrapper > div{ width: 100%; max-width: 500px; position: relative;}
@@ -286,10 +232,6 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 @property --gradient-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg;}  
 @keyframes rotate-gradient { to { --gradient-angle: 360deg;}}
 
-
-
-
-
 .form-wrapper{ display: flex; flex-direction: column; width: 100%; max-width: 300px; gap: 30px;}
 .form-wrapper.limit{ max-width: 900px; margin: 0 auto;}
 .form-wrapper.full{ max-width: unset;}
@@ -306,15 +248,12 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 .bd-input > div textarea{ resize: none; height: 100px; padding: 15px;}
 .bd-input > div input[type="file" i]::-webkit-file-upload-button{ margin-top: 8px;}
 
-
 .cb{ position: relative; display: flex; align-items: center;}
 .cb input[type="checkbox"]{ margin-right: 25px; width: 1px; height: 1px; position: relative;}
 .cb input[type="checkbox"]::before{ width: 14px; height: 14px; top: 0; left: 0; transform: translateY(-50%); cursor: pointer; transition: all .2s ease; content: '\f00c'; font-family: 'FONT AWESOME 5 FREE'; font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 11px; position: absolute; border: 1px solid var(--main-clr); border-radius: 3px; background-color: transparent; color: transparent; box-shadow: 0 2px 5px -2px rgba(var(--white-o), .2);}
 .cb input[type="checkbox"]:checked::before{ background-color: var(--main-clr); color: var(--dark);}
 .cb input[type="checkbox"]::after{ background-color: var(--main-clr); color: var(--dark);}
 .cb label{ font-size: 13px; color: var(--main-clr); font-weight: 400; line-height: 1; letter-spacing: .3px;}
-
-
 
 .bd-table{ font-size: 14px; border-radius: 5px; border: 1px solid #ecedf0;}
 .bd-table .h{ background-color: #fdfdf3;}
@@ -334,7 +273,6 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 .bd-table .b > div > div:not(:last-child){ border-right: 1px solid #e6eaee;}
 .bd-table .b > div > div:last-child{ display: flex; align-items: center; justify-content: center; gap: 10px;}
 
-
 .bd-table.basket-table .h,
 .bd-table.basket-table .b > div{ display: grid; grid-template-columns: 90px 1fr 200px 180px 150px 160px;}
 .bd-table.basket-table.v2 .h,
@@ -350,28 +288,14 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 .bd-table.basket-table .b > div > div:is(:nth-child(3), :nth-child(4), :nth-child(5)){ text-align: center; justify-content: center;}
 .bd-table.basket-table .b > div > div:last-child{ flex-direction: column; gap: 2px;}
 
-
-
 .select-form{ display: flex; align-items: center; justify-content: space-between; width: 100%;}
 .select-form span{ font-size: 14px;}
 .select-form span strong{ font-weight: 600;}
 .select-form > div{ width: 220px;}
 
-
-
-
 .btns-area{ display: flex; gap: 10px;}
 .btns-area.right{ justify-content: flex-end;}
 .ml-auto{ margin-left: auto;}
-
-
-
-
-
-
-
-
-
 
 .btn{ position: relative; opacity: .85; color: var(--clr); height: 30px; padding: 0 20px; background-color: var(--bg); color: var(--clr); border: 1px solid var(--border); outline: none; cursor: pointer; transition: all .2s ease; border-radius: 5px; font-size: 12px; font-weight: 600; white-space: nowrap; display: flex; align-items: center; justify-content: center;}
 .btn:hover{ opacity: 1; box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);}
@@ -398,10 +322,114 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 .btn-black{ --bg: #000; --clr: #fff; --border: #000;}
 .btn-black-outlined{ --bg: transparent; --clr: #000; --border: #000;}
 
+/* Forgot Password Styles */
+.forgot-password-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white!important;
+}
 
+.forgot-password-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
+.forgot-password-container .form-group {
+  margin-bottom: 15px;
+}
 
+.forgot-password-container label {
+  display: block;
+  margin-bottom: 5px;
+}
 
+.forgot-password-container input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background-color: var(--main-clr) !important;
+  color: #000;
+}
 
+.forgot-password-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--main-clr) !important;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
+/* Button Active/Inactive Styles */
+.forgot-password-container button:disabled {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed;
+}
 
+.forgot-password-container button:not(:disabled) {
+  background-color: var(--main-clr) !important;
+  color: #000 !important;
+  cursor: pointer;
+}
+
+/* Reset Password Styles */
+.reset-password-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white !important;
+}
+
+.reset-password-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.reset-password-container .form-group {
+  margin-bottom: 15px;
+}
+
+.reset-password-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.reset-password-container input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background-color: var(--main-clr) !important;
+  color: #000;
+}
+
+.reset-password-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--main-clr) !important;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Reset Password Button Active/Inactive Styles */
+.reset-password-container button:disabled {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed;
+}
+
+.reset-password-container button:not(:disabled) {
+  background-color: var(--main-clr) !important;
+  color: #000 !important;
+  cursor: pointer;
+}
