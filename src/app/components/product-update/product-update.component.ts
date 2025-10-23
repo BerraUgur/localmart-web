@@ -75,6 +75,7 @@ export class ProductUpdateComponent implements OnInit {
     if (file) {
       this.convertToBase64(file).then(base64 => {
         this.productForm.patchValue({ mainImage: base64 });
+        this.mainImage = base64;
       });
     }
   }
@@ -90,6 +91,7 @@ export class ProductUpdateComponent implements OnInit {
         processed++;
         if (processed === files.length) {
           this.productForm.patchValue({ images: newImages });
+          this.imagesArr = newImages.filter((img: string) => !!img); // Null/undefined elemanları filtrele
         }
       });
     }

@@ -11,6 +11,7 @@ export interface Order {
 	orderItems: OrderItem[];
 	address?: Address;
 }
+
 export interface OrderItem {
 	productId?: number;
 	quantity?: number;

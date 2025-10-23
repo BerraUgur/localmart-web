@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { LoggerService } from '../services/logger.service';
+import { LoggerService } from './logger.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const logger = inject(LoggerService);

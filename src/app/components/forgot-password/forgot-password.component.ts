@@ -36,7 +36,7 @@ export class ForgotPasswordComponent {
       return;
     }
 
-    this.isSubmitting = true; // Permanently disable the button
+    this.isSubmitting = true;
 
     const email = this.forgotPasswordForm.value.email;
     const mail = {
@@ -48,17 +48,16 @@ export class ForgotPasswordComponent {
 
     this.mailService.sendMail(mail).subscribe(
       (response) => {
-        if (response) {
-          this.toastr.success('Password reset link has been sent to your email.');
-          setTimeout(() => {
-            window.location.href = '/login';
-          }, 1000);
-        } else {
-          this.toastr.error('Email not found in the system.');
-        }
+        this.toastr.success('Password reset link has been sent to your email.');
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 1000);
       },
       (error: any) => {
-        this.toastr.error('Failed to send password reset link. Please try again later.');
+        this.toastr.success('Password reset link has been sent to your email.');
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 1000);
         this.logger.error('Error sending password reset email:', error);
       }
     );

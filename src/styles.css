@@ -322,64 +322,8 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
 .btn-black{ --bg: #000; --clr: #fff; --border: #000;}
 .btn-black-outlined{ --bg: transparent; --clr: #000; --border: #000;}
 
-/* Forgot Password Styles */
-.forgot-password-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: white!important;
-}
-
-.forgot-password-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.forgot-password-container .form-group {
-  margin-bottom: 15px;
-}
-
-.forgot-password-container label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.forgot-password-container input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #000;
-  border-radius: 4px;
-  background-color: var(--main-clr) !important;
-  color: #000;
-}
-
-.forgot-password-container button {
-  width: 100%;
-  padding: 10px;
-  background-color: var(--main-clr) !important;
-  color: #000;
-  border: 1px solid #000;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* Button Active/Inactive Styles */
-.forgot-password-container button:disabled {
-  background-color: #ccc !important;
-  color: #666 !important;
-  cursor: not-allowed;
-}
-
-.forgot-password-container button:not(:disabled) {
-  background-color: var(--main-clr) !important;
-  color: #000 !important;
-  cursor: pointer;
-}
-
-/* Reset Password Styles */
-.reset-password-container {
+/* Forgot & Reset Password Common Styles */
+.forgot-reset-container {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -387,22 +331,18 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
   border-radius: 5px;
   background-color: white !important;
 }
-
-.reset-password-container h2 {
+.forgot-reset-container h2 {
   text-align: center;
   margin-bottom: 20px;
 }
-
-.reset-password-container .form-group {
+.forgot-reset-container .form-group {
   margin-bottom: 15px;
 }
-
-.reset-password-container label {
+.forgot-reset-container label {
   display: block;
   margin-bottom: 5px;
 }
-
-.reset-password-container input {
+.forgot-reset-container input {
   width: 100%;
   padding: 8px;
   border: 1px solid #000;
@@ -410,8 +350,7 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
   background-color: var(--main-clr) !important;
   color: #000;
 }
-
-.reset-password-container button {
+.forgot-reset-container button {
   width: 100%;
   padding: 10px;
   background-color: var(--main-clr) !important;
@@ -420,15 +359,12 @@ footer{ font-size: 13px; font-weight: 600; height: 50px; display: flex; align-it
   border-radius: 4px;
   cursor: pointer;
 }
-
-/* Reset Password Button Active/Inactive Styles */
-.reset-password-container button:disabled {
+.forgot-reset-container button:disabled {
   background-color: #ccc !important;
   color: #666 !important;
   cursor: not-allowed;
 }
-
-.reset-password-container button:not(:disabled) {
+.forgot-reset-container button:not(:disabled) {
   background-color: var(--main-clr) !important;
   color: #000 !important;
   cursor: pointer;

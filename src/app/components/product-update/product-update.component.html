@@ -6,6 +6,23 @@
     <form [formGroup]="productForm" (ngSubmit)="updateProduct()" class="form-wrapper limit">
       <!-- Hidden seller user id -->
       <input style="display: none;" type="hidden" id="sellerUserId" formControlName="sellerUserId" [value]="currentUserId">
+      <!-- Main Image Preview -->
+      <div class="bd-input" *ngIf="mainImage">
+        <label>Main Image Preview:</label>
+        <div>
+          <img [src]="mainImage.startsWith('data:') ? mainImage : 'http://localhost:5203' + mainImage" class="preview-img" style="max-width: 300px; max-height: 200px;" />
+        </div>
+      </div>
+      <!-- Other Images Preview -->
+      <div class="bd-input" *ngIf="imagesArr && imagesArr.length > 0">
+        <label>Other Images Preview:</label>
+        <div class="preview-list">
+    <img *ngFor="let img of imagesArr" 
+      [src]="img ? (img.startsWith('data:') ? img : 'http://localhost:5203' + img) : ''"
+      [hidden]="!img" 
+      style="max-width: 120px; max-height: 120px; margin-right: 8px;" />
+        </div>
+      </div>
       <div class="__3">
         <div class="bd-input">
           <label for="name">Product Name:</label>
@@ -55,13 +72,13 @@
       <div class="__2">
         <div class="bd-input">
           <label for="mainImage">Main Image:</label>
-          <div>
+          <div style="display: flex; align-items: center; gap: 12px;">
             <input type="file" id="mainImage" (change)="onMainImageSelected($event)">
           </div>
         </div>
         <div class="bd-input">
           <label for="images">Other Images:</label>
-          <div>
+          <div style="display: flex; align-items: center; gap: 12px;">
             <input type="file" id="images" multiple (change)="onImagesSelected($event)">
           </div>
         </div>
