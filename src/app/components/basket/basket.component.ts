@@ -61,11 +61,11 @@ export class BasketComponent implements OnInit {
             })
 
           } else {
-            this.logger.error('Product not found');
+            this.logger.logError('Product not found');
           }
         },
           error => {
-            this.logger.error('Error fetching product details', error);
+            this.logger.logError('Error fetching product details', error);
           }
         );
       })
@@ -74,18 +74,14 @@ export class BasketComponent implements OnInit {
     this.currentUserId = this.authService.getCurrentUserId();
     this.authService.getUser(this.currentUserId).subscribe((user) => {
       this.currentUser = user;
-      this.logger.debug('Current user:', this.currentUser);
     });
-    this.logger.debug('Current basket:', this.currentBasket);
   }
 
   updateTotalPrice() {
     this.totalPrice = 0;
     this.products.forEach(p => {
-      this.logger.debug('Basket product:', p);
       this.totalPrice += p.discountedPrice ?? 0;
     });
-    this.logger.info('Total basket price:', this.totalPrice);
   }
 
   deleteProductBasket(productId: number | any) {
@@ -115,7 +111,6 @@ export class BasketComponent implements OnInit {
         postalCode: this.postalCode,
         openAddress: this.openAddress
       };
-      this.logger.info('Address request', addressRequest);
       this.addressService.addAddress(addressRequest).subscribe(
         data => {
           let order: Order = {
@@ -136,14 +131,14 @@ export class BasketComponent implements OnInit {
                 </thead>
                 <tbody>
                   ${this.currentBasket.map((basketItem: any) => {
-                    const product = this.products.find((product: any) => product.id == basketItem.productId);
-                    return `
+              const product = this.products.find((product: any) => product.id == basketItem.productId);
+              return `
                       <tr>
                         <td style='padding: 8px;'>${product?.name}</td>
                         <td style='padding: 8px;'>${product?.discountedPrice} TL</td>
                       </tr>
                     `;
-                  }).join('')}
+            }).join('')}
                   <tr>
                     <td colspan='2' style='padding: 8px; text-align: right; font-weight: bold;'>Total Price: ${this.totalPrice} TL</td>
                   </tr>
@@ -181,8 +176,8 @@ export class BasketComponent implements OnInit {
                 body: productsHtml
               };
               this.mailService.sendMail(mail).subscribe(
-                (response: any) => { this.logger.info('Mail sent successfully', response); },
-                (error: any) => { this.logger.error('Error sending mail', error); }
+                (response: any) => { this.logger.logInfo('Mail sent successfully', response); },
+                (error: any) => { this.logger.logError('Error sending mail', error); }
               );
             });
 
@@ -208,14 +203,14 @@ export class BasketComponent implements OnInit {
                     </thead>
                     <tbody>
                       ${sellerBasketItems.map((basketItem: any) => {
-                        const product = sellerProducts.find((p: any) => p.id == basketItem.productId);
-                        return `
+                  const product = sellerProducts.find((p: any) => p.id == basketItem.productId);
+                  return `
                           <tr>
                             <td style='padding: 8px;'>${product?.name}</td>
                             <td style='padding: 8px;'>${product?.discountedPrice} TL</td>
                           </tr>
                         `;
-                      }).join('')}
+                }).join('')}
                       <tr>
                         <td colspan='2' style='padding: 8px; text-align: right; font-weight: bold;'>Total Price: ${newTotalPrice.toFixed(2)} TL</td>
                       </tr>
@@ -255,14 +250,13 @@ export class BasketComponent implements OnInit {
             });
 
             this.toastr.success('Your order has been approved.');
-            this.logger.info('Order saved:', orderData);
             this.currentBasket = [];
             localStorage.removeItem('basket');
             this.router.navigate(['/my-orders/']);
           });
         },
         error => {
-          this.logger.error('Address save failed', error);
+          this.logger.logError('Address save failed', error);
         }
       );
     }

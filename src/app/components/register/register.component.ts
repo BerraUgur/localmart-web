@@ -40,7 +40,6 @@ export class RegisterComponent {
       this.phoneNumber === ''
     ) {
       this.toastr.error('Please fill in all fields');
-      this.logger.warn('Registration attempt with missing fields');
       return;
     }
     const registerRequest: RegisterRequest = {
@@ -48,18 +47,16 @@ export class RegisterComponent {
       password: this.password,
       firstName: this.firstName,
       lastName: this.lastName,
-      phoneNumber: this.phoneNumber,
+      phoneNumber: this.phoneNumber.toString(),
       username: this.username
     };
-    this.logger.info('Registration attempt', registerRequest.email);
     this.authService.Register(registerRequest).subscribe(
       () => {
-        this.logger.info('Registration successful', registerRequest.email);
         this.router.navigate(['/login']);
       },
       error => {
         this.toastr.error('Registration failed');
-        this.logger.error('Registration failed', registerRequest.email, error);
+        this.logger.logError('Registration failed', { email: registerRequest.email, error });
       }
     );
   }

@@ -11,14 +11,13 @@ import { LoggerService } from './logger.service';
 export class MailService {
   private baseUrl: string = 'http://localhost:5203/auth/send-mail';
 
-  constructor(private http: HttpClient, private logger: LoggerService) {}
+  constructor(private http: HttpClient, private logger: LoggerService) { }
 
   sendMail(mail: Mail): Observable<Mail> {
-    this.logger.info('Sending mail:', mail);
     return this.http.post<Mail>(this.baseUrl, mail).pipe(
       tap({
-        next: (response) => this.logger.info('Mail sent successfully:', response),
-        error: (error) => this.logger.error('Error sending mail:', error)
+        next: (response) => this.logger.logInfo('Mail sent successfully:', response),
+        error: (error) => this.logger.logError('Error sending mail:', error)
       })
     );
   }

@@ -58,12 +58,12 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
           });
         } else {
           this.toastr.error('Product not found');
-          this.logger.error('Product not found');
+          this.logger.logError('Product not found');
         }
       },
       error => {
         this.toastr.error('Error fetching product details');
-        this.logger.error('Error fetching product details', error);
+        this.logger.logError('Error fetching product details', error);
       }
     );
 
@@ -106,7 +106,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
         },
         error => {
           this.toastr.error('Error adding comment');
-          this.logger.error('Error adding comment', error);
+          this.logger.logError('Error adding comment', error);
         }
       );
     }
@@ -120,7 +120,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
       },
       error => {
         this.toastr.error('Error deleting comment');
-        this.logger.error('Error deleting comment', error);
+        this.logger.logError('Error deleting comment', error);
       }
     );
   }
@@ -133,7 +133,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
       },
       error => {
         this.toastr.error('Error deleting product');
-        this.logger.error('Error deleting product', error);
+        this.logger.logError('Error deleting product', error);
       }
     );
   }

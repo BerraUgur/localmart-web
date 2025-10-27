@@ -41,15 +41,13 @@ export class UserUpdateComponent {
   ngOnInit() {
     // Fetch user details by id
     this.userId = +this.route.snapshot.paramMap.get('id')!;
-    this.logger.info('Fetching user details', this.userId);
     this.userService.getUser(this.userId).subscribe(
       (user: User) => {
         this.userForm.patchValue(user);
-        this.logger.info('User details fetched', user);
       },
       error => {
         this.toastr.error('Error fetching user details');
-        this.logger.error('Error fetching user details', error);
+        this.logger.logError('Error fetching user details', error);
       }
     );
   }
@@ -57,16 +55,14 @@ export class UserUpdateComponent {
   // Update user details
   updateUser() {
     if (this.userForm.valid) {
-      this.logger.info('Updating user', this.userId, this.userForm.value);
       this.userService.updateUser(this.userId!, this.userForm.value).subscribe(
         () => {
           this.toastr.success('User has been updated');
-          this.logger.info('User updated successfully', this.userId);
           this.router.navigate(['/user-list']);
         },
         error => {
           this.toastr.error('Error updating user');
-          this.logger.error('Error updating user', error);
+          this.logger.logError('Error updating user', error);
         }
       );
     }

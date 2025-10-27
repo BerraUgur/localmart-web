@@ -51,7 +51,6 @@ export class ProductUpdateComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe(
       (product: Product | null) => {
         if (product) {
-          this.logger.info('Fetched product details:', product);
           this.mainImage = product.mainImage || '';
           this.imagesArr = product.images || [];
           this.productForm.patchValue({
@@ -62,7 +61,7 @@ export class ProductUpdateComponent implements OnInit {
         }
       },
       error => {
-        this.logger.error('Error fetching product details', error);
+        this.logger.logError('Error fetching product details', error);
       }
     );
 

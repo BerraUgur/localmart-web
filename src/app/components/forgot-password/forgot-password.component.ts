@@ -58,7 +58,7 @@ export class ForgotPasswordComponent {
         setTimeout(() => {
           window.location.href = '/login';
         }, 1000);
-        this.logger.error('Error sending password reset email:', error);
+        this.logger.logError('Error sending password reset email:', error);
       }
     );
   }

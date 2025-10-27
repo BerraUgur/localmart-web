@@ -36,7 +36,7 @@ export class AddProductComponent {
     if (file) {
       // Only allow image files for security
       if (!file.type.startsWith('image/')) {
-        this.logger.error('Only image files are allowed.');
+        this.logger.logError('Only image files are allowed.');
         return;
       }
       this.convertToBase64(file).then(
@@ -54,7 +54,7 @@ export class AddProductComponent {
       Array.from(files).forEach((file: any) => {
         // Only allow image files for security
         if (!file.type.startsWith('image/')) {
-          this.logger.error('Only image files are allowed.');
+          this.logger.logError('Only image files are allowed.');
           return;
         }
         this.convertToBase64(file).then(
@@ -92,14 +92,12 @@ export class AddProductComponent {
       city: this.city,
       district: this.district
     };
-    this.logger.info('Product request', productRequest);
     this.productService.createProduct(productRequest).subscribe(
       data => {
-        this.logger.info('Product saved successfully', data);
         this.router.navigate(['']);
       },
       error => {
-        this.logger.error('Product save failed', error);
+        this.logger.logError('Product save failed', error);
       }
     );
   }

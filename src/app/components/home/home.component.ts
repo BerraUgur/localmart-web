@@ -19,17 +19,16 @@ export class HomeComponent implements OnInit {
   noProducts: boolean = false;
   private toastr = inject(ToastrService);
   private logger = inject(LoggerService);
-  
+
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
     this.productService.getAllProducts().subscribe(
       (data: Product[]) => {
         this.products = data;
-        this.logger.info('Products fetched successfully', data);
       },
       error => {
-        this.logger.error('Error fetching products', error);
+        this.logger.logError('Error fetching products', error);
         this.toastr.error('An error occurred. Please contact the system administrator. Error Code: ' + error);
       }
     );
@@ -37,11 +36,10 @@ export class HomeComponent implements OnInit {
     this.productService.getAllProducts().subscribe(
       (data: Product[]) => {
         this.products = data;
-        this.logger.info('Products fetched successfully (second call)', data);
       },
       error => {
-        this.logger.error('Error fetching products (second call)', error);
-        this.toastr.error('An error occurred. Please contact the system administrator. Error Code: ' + error)
+        this.logger.logError('Error fetching products (second call)', error);
+        this.toastr.error('An error occurred. Please contact the system administrator. Error Code: ' + error);
       }
     );
   }

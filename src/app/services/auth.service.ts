@@ -26,12 +26,10 @@ export class AuthService {
   }
 
   login(user: LoginRequest) {
-    this.logger.info('Login attempt', user.email);
     return this.httpClient.post<LoginResponse>(this.NewPath + "login", user);
   }
 
   Register(user: RegisterRequest) {
-    this.logger.info('Register attempt', user.email);
     return this.httpClient.post(this.NewPath + "register", user)
   }
 
@@ -84,7 +82,6 @@ export class AuthService {
   }
 
   logout() {
-    this.logger.info('Logout');
     this.localStorage.removeItem("token");
   }
 
@@ -94,22 +91,18 @@ export class AuthService {
   }
 
   updateUser(userId: number, updateUserRequest: UpdateUserRequest): Observable<void> {
-    this.logger.info('Update user', userId, updateUserRequest);
     return this.httpClient.put<void>(this.NewPath + userId + "/update", updateUserRequest);
   }
 
   deleteUser(id: number): Observable<void> {
-    this.logger.info('Delete user', id);
     return this.httpClient.delete<void>(`${this.NewPath}${id}`);
   }
 
   getUserList(): Observable<User[]> {
-    this.logger.info('Fetching user list');
     return this.httpClient.get<User[]>(this.NewPath + "userlist");
   }
 
   getUser(userId: number): Observable<User> {
-    this.logger.info('Fetching user', userId);
     return this.httpClient.get<User>(this.NewPath + userId);
   }
 }

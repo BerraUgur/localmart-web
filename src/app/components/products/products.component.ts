@@ -36,18 +36,16 @@ export class ProductsComponent implements OnInit {
             this.cities.push(product.city);
           }
         });
-        this.logger.info('Products fetched successfully', data);
       },
       error => {
         this.toastr.error('Error fetching products');
-        this.logger.error('Error fetching products', error);
+        this.logger.logError('Error fetching products', error);
       }
     );
   }
 
   updateFilter(e: any) {
     let selectedValue = e.target.value;
-    this.logger.info('Filter updated', selectedValue);
     if (selectedValue == 'all') {
       this.filteredProducts = this.products;
     } else {

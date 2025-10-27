@@ -28,16 +28,13 @@ export class MyProductsComponent implements OnInit {
     this.productService.getAllProducts().subscribe(
       (data: Product[]) => {
         this.products = data.filter(p => p.sellerUserId === this.currentUserId);
-        this.logger.info('Products fetched successfully', data);
-        this.logger.debug('Filtered products:', this.products);
       },
       error => {
         this.toastr.success('Error fetching products', error);
-        this.logger.error('Error fetching products', error);
+        this.logger.logError('Error fetching products', error);
       }
     );
 
     this.currentUserId = this.authService.getCurrentUserId();
-    this.logger.debug('Current user id:', this.currentUserId);
   }
 }

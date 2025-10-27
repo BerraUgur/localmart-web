@@ -37,7 +37,6 @@ export class MyOrdersComponent implements OnInit {
 
     // Fetch orders for current user (as buyer)
     this.ordersService.getOrdersByUserId(this.currentUserId).subscribe(data => {
-      this.logger.info('Fetched orders for user', this.currentUserId, data);
       data.forEach((item: any) => {
         this.addressService.getAddressById(item.addressId).subscribe(address => {
           item.address = address;
@@ -53,7 +52,6 @@ export class MyOrdersComponent implements OnInit {
 
     // Fetch orders for current user (as seller)
     this.ordersService.getAllOrders().subscribe(data => {
-      this.logger.info('Fetched all orders for seller', this.currentUserId, data);
       data.forEach((item: any) => {
         this.addressService.getAddressById(item.addressId).subscribe(address => {
           item.address = address;
@@ -76,7 +74,6 @@ export class MyOrdersComponent implements OnInit {
     this.ordersService.updateOrderToShippedById(order.id, order).subscribe(() => {
       order.status = 2;
       this.toastr.success('Product has been shipped');
-      this.logger.info('Order shipped', order.id);
       // Send mail to buyer with detailed HTML
       this.authService.getUser(order.userId).subscribe(user => {
         const productsHtml = `
@@ -129,8 +126,8 @@ export class MyOrdersComponent implements OnInit {
           body: productsHtml
         };
         this.mailService.sendMail(mail).subscribe(
-          () => this.logger.info('Mail sent to buyer for shipped order', { orderId: order.id }),
-          error => this.logger.error('Error sending mail to buyer for shipped order', error)
+          () => this.logger.logInfo('Mail sent to buyer for shipped order', order.id),
+          error => this.logger.logError('Error sending mail to buyer for shipped order', error)
         );
       });
     });
@@ -141,7 +138,6 @@ export class MyOrdersComponent implements OnInit {
     this.ordersService.updateOrderToDeliveredById(order.id, order).subscribe(() => {
       order.status = 3;
       this.toastr.success('Product has been delivered');
-      this.logger.info('Order delivered', order.id);
       // Send mail to seller with detailed HTML
       if (order.orderItems && order.orderItems.length > 0) {
         const sellerId = order.orderItems[0].product.sellerUserId;
@@ -198,8 +194,8 @@ export class MyOrdersComponent implements OnInit {
             body: productsHtml
           };
           this.mailService.sendMail(mail).subscribe(
-            () => this.logger.info('Mail sent to seller for delivered order', { orderId: order.id }),
-            error => this.logger.error('Error sending mail to seller for delivered order', error)
+            () => this.logger.logInfo('Mail sent to seller for delivered order', order.id),
+            error => this.logger.logError('Error sending mail to seller for delivered order', error)
           );
         });
       }

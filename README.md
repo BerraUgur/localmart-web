@@ -37,6 +37,27 @@ Localmart is a feature-rich Angular/Ionic-based e-commerce platform designed for
 - Docker (for backend and database)
 - DBeaver (for database management)
 
+## Project Structure
+```
+src/
+├── app/
+│   ├── components/          # Angular components (product, basket, login, etc.)
+│   ├── models/              # TypeScript models (Product, User, etc.)
+│   ├── services/            # Services for API calls, logging, authentication
+│   ├── app.config.ts        # App configuration
+│   ├── app.routes.ts        # Routing configuration
+│   ├── app.component.ts     # Root component
+├── assets/                  # Static assets (images, etc.)
+├── index.html               # Main HTML file
+├── main.ts                  # App bootstrap
+├── styles.css               # Global styles
+```
+- **components/**: UI components for product, basket, login, etc.
+- **models/**: TypeScript interfaces for app data.
+- **services/**: API communication, logging, authentication.
+- **app.config.ts**: App configuration.
+- **assets/**: Images and static files.
+
 ### Installation
 1. Clone the repository:
    ```bash

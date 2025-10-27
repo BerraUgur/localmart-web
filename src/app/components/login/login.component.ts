@@ -23,17 +23,15 @@ export class LoginComponent {
 
   login() {
     const loginRequest: LoginRequest = { email: this.username, password: this.password };
-    this.logger.info('Login attempt', loginRequest.email);
     this.authService.login(loginRequest).subscribe(
       data => {
         localStorage.setItem('token', data.accessToken ?? "");
         this.authService.setUserStats();
-        this.logger.info('Login successful', loginRequest.email);
         this.router.navigate(['/']).then(() => window.location.reload());
       },
       error => {
         this.toastr.error('Invalid username or password');
-        this.logger.error('Login failed', loginRequest.email, error);
+        this.logger.logError('Login failed', { email: loginRequest.email, error });
       }
     );
   }

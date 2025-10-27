@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
           this.currentUser = user;
         },
         error: err => {
-          this.logger.error('Kullanıcı bilgisi alınamadı:', err);
+          this.logger.logError('User info could not be retrieved:', err);
         }
       });
     }
