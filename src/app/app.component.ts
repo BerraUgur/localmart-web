@@ -3,7 +3,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { User } from './models/comment';
-import { LoggerService } from './services/logger.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +23,6 @@ export class AppComponent implements OnInit {
 
   private authService = inject(AuthService);
   private router = inject(Router);
-  private logger = inject(LoggerService);
 
   ngOnInit(): void {
     this.isLogging = this.authService.loggedIn();
@@ -39,7 +37,6 @@ export class AppComponent implements OnInit {
           this.currentUser = user;
         },
         error: err => {
-          this.logger.logError('User info could not be retrieved:', err);
         }
       });
     }

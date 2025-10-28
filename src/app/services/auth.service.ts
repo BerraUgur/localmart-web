@@ -8,7 +8,6 @@ import { LoginResponse } from '../models/loginResponse';
 import { RegisterRequest } from '../models/registerRequest';
 import { UpdateUserRequest } from '../models/userRequest';
 import { User } from '../models/comment';
-import { LoggerService } from './logger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ export class AuthService {
   currentUserId?: number;
   currentRoles?: string;
   NewPath = "http://localhost:5203/auth/"
-  constructor(private httpClient: HttpClient, private logger: LoggerService) {
+  constructor(private httpClient: HttpClient) {
     this.setUserStats();
     this.localStorage = window.localStorage;
   }
@@ -104,5 +103,13 @@ export class AuthService {
 
   getUser(userId: number): Observable<User> {
     return this.httpClient.get<User>(this.NewPath + userId);
+  }
+  
+  resetPassword(email: string, token: string, newPassword: string): Observable<any> {
+    return this.httpClient.post(this.NewPath + 'reset-password', { email, token, newPassword });
+  }
+
+  requestPasswordReset(email: string): Observable<any> {
+    return this.httpClient.post(this.NewPath + 'forgot-password', { email });
   }
 }

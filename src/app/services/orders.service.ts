@@ -1,23 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoggerService } from './logger.service';
 import { Order } from '../models/order';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class OrdersService {
   private baseUrl: string = 'http://localhost:5203/orders';
-  constructor(private http: HttpClient, private logger: LoggerService) { }
+
+  constructor(private http: HttpClient) {}
 
   getAllOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.baseUrl}`);
+    return this.http.get<any>(`${this.baseUrl}`).pipe(
+      map(res => res?.data ?? [])
+    );
   }
 
   getOrdersByUserId(userId: number): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.baseUrl}/user/${userId}`);
+    return this.http.get<any>(`${this.baseUrl}/user/${userId}`).pipe(
+      map(res => res?.data ?? [])
+    );
   }
 
   getOrderById(id: number): Observable<Order | null> {
@@ -32,7 +36,15 @@ export class OrdersService {
     return this.http.put<Order>(`${this.baseUrl}/shipped/${id}`, order);
   }
 
+  updateOrderToShippedProductById(id: number, order: Order, pid: number | undefined): Observable<Order | null> {
+    return this.http.put<Order>(`${this.baseUrl}/shipped-product/${id}?pid=${pid}`, order);
+  }
+
   updateOrderToDeliveredById(id: number, order: Order): Observable<Order | null> {
     return this.http.put<Order>(`${this.baseUrl}/delivered/${id}`, order);
+  }
+
+  updateOrderToDeliveredProductById(id: number, order: Order, pid: number | undefined): Observable<Order | null> {
+    return this.http.put<Order>(`${this.baseUrl}/delivered-product/${id}?pid=${pid}`, order);
   }
 }

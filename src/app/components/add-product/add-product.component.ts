@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { LoggerService } from '../../services/logger.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-product',
@@ -29,7 +30,12 @@ export class AddProductComponent {
   ngOnInit() {
   }
 
-  constructor(private productService: ProductService, private router: Router, private logger: LoggerService) { }
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private logger: LoggerService,
+    private toastr: ToastrService
+  ) { }
 
   onSingleFileSelected(event: any): void {
     const file = event.target.files[0];
@@ -81,13 +87,30 @@ export class AddProductComponent {
   }
 
   saveProduct() {
+    if (
+      !this.name ||
+      this.price === null ||
+      this.discountedPrice === null ||
+      this.stock === null ||
+      !this.description ||
+      !this.city ||
+      !this.district ||
+      !this.singleImageBase64
+    ) {
+      this.toastr.error('Please fill in all required fields.');
+      return;
+    }
     const productRequest: any = {
-      mainImage: this.singleImageBase64,
-      images: this.multipleImagesBase64,
+      mainImage: typeof this.singleImageBase64 === 'string' && this.singleImageBase64.startsWith('data:image')
+        ? this.singleImageBase64
+        : undefined,
+      images: Array.isArray(this.multipleImagesBase64)
+        ? this.multipleImagesBase64.filter((img: string) => img && typeof img === 'string' && img.startsWith('data:image'))
+        : [],
       name: this.name,
-      price: this.price,
-      discountedPrice: this.discountedPrice,
-      stock: this.stock,
+      price: Number(this.price),
+      discountedPrice: Number(this.discountedPrice),
+      stock: Number(this.stock),
       description: this.description,
       city: this.city,
       district: this.district
@@ -97,6 +120,7 @@ export class AddProductComponent {
         this.router.navigate(['']);
       },
       error => {
+        this.toastr.error('Product could not be added. Please check your inputs.');
         this.logger.logError('Product save failed', error);
       }
     );

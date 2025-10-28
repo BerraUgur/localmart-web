@@ -10,6 +10,7 @@ import { CommentService } from '../../services/comment.service';
 import { CustomComment, User } from '../../models/comment';
 import { AuthService } from '../../services/auth.service';
 import { LoggerService } from '../../services/logger.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-product-detail',
@@ -23,6 +24,13 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
   product: Product | null = null;
   comments?: CustomComment[] = [];
   comment?: string;
+
+  // Modal state for single delete
+  showDeleteModal: boolean = false;
+  deleteTargetId: number | null = null;
+
+  // Modal state for deleting all comments (admin)
+  showDeleteAllModal: boolean = false;
 
   currentUserId?: number;
   seller?: any;
@@ -48,12 +56,12 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     const productId = +this.route.snapshot.paramMap.get('id')!;
     this.productService.getProductById(productId).subscribe(
-      (product: Product | null) => {
-        if (product) {
-          this.product = product;
-          this.comments = product.comments;
+      (response: any) => {
+        if (response && response.data) {
+          this.product = response.data;
+          this.comments = response.data.comments;
           // Fetch seller info for product
-          this.authService.getUser(product.sellerUserId).subscribe((user) => {
+          this.authService.getUser(response.data.sellerUserId).subscribe((user) => {
             this.seller = user;
           });
         } else {
@@ -73,7 +81,6 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
       this.currentBasket = JSON.parse((<any>localStorage.getItem('basket')));
     }
   }
-
 
   addBasket(productId: any): void {
     // Prevent adding duplicate products to basket
@@ -100,8 +107,13 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
       };
       this.commentService.addComment(newComment).subscribe(
         (data: CustomComment) => {
-          // Add new comment to list without reload
-          this.comments?.push(data);
+          this.productService.getProductById(this.product!.id!).subscribe((response: any) => {
+            if (response && response.data) {
+              this.product = response.data;
+              this.comments = response.data.comments;
+            }
+          });
+          this.comment = '';
           this.toastr.success('Comment added successfully');
         },
         error => {
@@ -121,6 +133,56 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
       error => {
         this.toastr.error('Error deleting comment');
         this.logger.logError('Error deleting comment', error);
+      }
+    );
+  }
+
+  // Open confirmation modal for deleting a single comment
+  openDeleteModal(commentId: number | undefined) {
+    if (!commentId) return;
+    this.deleteTargetId = commentId;
+    this.showDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.deleteTargetId = null;
+  }
+
+  confirmDeleteComment() {
+    if (this.deleteTargetId == null) return;
+    const id = this.deleteTargetId;
+    // reuse existing deleteComment method
+    this.deleteComment(id);
+    this.closeDeleteModal();
+  }
+
+  // Admin: delete all comments for this product (client-side loop)
+  openDeleteAllModal() {
+    this.showDeleteAllModal = true;
+  }
+
+  closeDeleteAllModal() {
+    this.showDeleteAllModal = false;
+  }
+
+  confirmDeleteAllComments() {
+    if (!this.comments || this.comments.length === 0) {
+      this.toastr.info('No comments to delete');
+      this.closeDeleteAllModal();
+      return;
+    }
+    const deletes = this.comments.map(c => this.commentService.deleteComment(c.id!));
+    forkJoin(deletes).subscribe(
+      () => {
+        this.comments = [];
+        this.toastr.success('All comments deleted');
+        this.closeDeleteAllModal();
+      },
+      error => {
+        this.toastr.error('Error deleting comments');
+        this.logger.logError('Error deleting comments', error);
+        this.closeDeleteAllModal();
       }
     );
   }

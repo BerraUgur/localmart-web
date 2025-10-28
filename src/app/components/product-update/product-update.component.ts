@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
 import { AuthService } from '../../services/auth.service';
 import { LoggerService } from '../../services/logger.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-update',
@@ -30,7 +30,8 @@ export class ProductUpdateComponent implements OnInit {
     private fb: FormBuilder,
     private productService: ProductService,
     private authService: AuthService,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private toastr: ToastrService
   ) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
@@ -49,8 +50,9 @@ export class ProductUpdateComponent implements OnInit {
   ngOnInit() {
     this.productId = +this.route.snapshot.paramMap.get('id')!;
     this.productService.getProductById(this.productId).subscribe(
-      (product: Product | null) => {
-        if (product) {
+      (response: any) => {
+        if (response && response.data) {
+          const product = response.data;
           this.mainImage = product.mainImage || '';
           this.imagesArr = product.images || [];
           this.productForm.patchValue({
@@ -108,15 +110,35 @@ export class ProductUpdateComponent implements OnInit {
   // Update product details
   updateProduct() {
     if (this.productForm.valid) {
-      this.productForm.value.id = this.productId;
-      this.productService.updateProduct(this.productId!, this.productForm.value).subscribe(
+      const updateData = {
+        id: this.productId,
+        name: this.productForm.value.name,
+        price: this.productForm.value.price,
+        discountedPrice: this.productForm.value.discountedPrice,
+        stock: this.productForm.value.stock,
+        description: this.productForm.value.description,
+        city: this.productForm.value.city,
+        district: this.productForm.value.district,
+        mainImage: (
+          this.productForm.value.mainImage &&
+          typeof this.productForm.value.mainImage === 'string' &&
+          this.productForm.value.mainImage.startsWith('data:image')
+        )
+          ? this.productForm.value.mainImage
+          : this.mainImage,
+        images: Array.isArray(this.productForm.value.images)
+          ? this.productForm.value.images.filter((img: string) => img && typeof img === 'string' && img.startsWith('data:image'))
+          : [],
+        sellerUserId: this.productForm.value.sellerUserId || this.currentUserId,
+        sellerPhone: this.productForm.value.sellerPhone || ''
+      };
+      this.productService.updateProduct(this.productId!, updateData).subscribe(
         () => {
-          // Show success message and redirect
-          alert('Product updated successfully');
+          this.toastr.success('Product updated successfully');
           this.router.navigate(['/my-products']);
         },
         () => {
-          alert('Error updating product');
+          this.toastr.error('Error updating product');
         }
       );
     }

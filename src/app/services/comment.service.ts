@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoggerService } from './logger.service';
 import { Observable } from 'rxjs';
 import { CustomComment } from '../models/comment';
 
@@ -10,7 +9,7 @@ import { CustomComment } from '../models/comment';
 
 export class CommentService {
   private baseUrl: string = 'http://localhost:5203/comments';
-  constructor(private http: HttpClient, private logger: LoggerService) { }
+  constructor(private http: HttpClient) { }
 
   getCommentsByProductId(productId: number): Observable<CustomComment[]> {
     return this.http.get<CustomComment[]>(`${this.baseUrl}/product/${productId}`);

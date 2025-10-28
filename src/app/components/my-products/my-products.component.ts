@@ -24,17 +24,18 @@ export class MyProductsComponent implements OnInit {
   currentUserId?: number;
 
   ngOnInit() {
+    this.currentUserId = this.authService.getCurrentUserId();
 
     this.productService.getAllProducts().subscribe(
-      (data: Product[]) => {
-        this.products = data.filter(p => p.sellerUserId === this.currentUserId);
+      (data: any) => {
+        const productsArr = Array.isArray(data) ? data : (data.data || []);
+        this.products = productsArr.filter((p: Product) => p.sellerUserId === this.currentUserId);
+        this.noProducts = this.products.length === 0;
       },
       error => {
-        this.toastr.success('Error fetching products', error);
+        this.toastr.error('Error fetching products', error);
         this.logger.logError('Error fetching products', error);
       }
     );
-
-    this.currentUserId = this.authService.getCurrentUserId();
   }
 }

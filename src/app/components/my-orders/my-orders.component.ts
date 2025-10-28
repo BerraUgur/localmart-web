@@ -1,81 +1,89 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AddressService } from '../../services/address.service';
+import { AuthService } from '../../services/auth.service';
 import { Order } from '../../models/order';
 import { OrdersService } from '../../services/orders.service';
-import { AuthService } from '../../services/auth.service';
-import { AddressService } from '../../services/address.service';
-import { LoggerService } from '../../services/logger.service';
+import { Mail } from '../../models/mail';
 import { MailService } from '../../services/mail.service';
+import { LoggerService } from '../../services/logger.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-my-orders',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './my-orders.component.html',
-  styleUrl: './my-orders.component.css'
+  styleUrl: './my-orders.component.css',
+  standalone: true,
+  imports: [CommonModule]
 })
-
 export class MyOrdersComponent implements OnInit {
   incomingOrders: Order[] = [];
   orders: Order[] = [];
+  allOrders: any = [];
   currentUserId?: number;
   currentUserRole?: string;
-  private toastr = inject(ToastrService);
 
   constructor(
     private ordersService: OrdersService,
     private addressService: AddressService,
     private authService: AuthService,
     private mailService: MailService,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
+    this.loadOrders();
+  }
+
+  private loadOrders() {
     this.currentUserId = this.authService.getCurrentUserId();
     this.currentUserRole = this.authService.getCurrentRoles();
 
-    // Fetch orders for current user (as buyer)
-    this.ordersService.getOrdersByUserId(this.currentUserId).subscribe(data => {
-      data.forEach((item: any) => {
-        this.addressService.getAddressById(item.addressId).subscribe(address => {
-          item.address = address;
-          this.orders = data;
+    // Buyer
+    this.ordersService.getOrdersByUserId(this.currentUserId).subscribe((ordersArray: any) => {
+      this.orders = ordersArray;
+      this.orders.forEach((item: any) => {
+        this.addressService.getAddressById(item.addressId).subscribe((address: any) => {
+          item.address = address.data;
         });
-        item.orderItems.forEach((orderItem: any) => {
-          this.authService.getUser(orderItem.product.sellerUserId).subscribe(user => {
-            orderItem.product.sellerPhone = user.phoneNumber;
+        if (Array.isArray(item.orderItems)) {
+          item.orderItems.forEach((orderItem: any) => {
+            this.authService.getUser(orderItem.product.sellerUserId).subscribe((user: any) => {
+              orderItem.product.sellerPhone = user.phoneNumber;
+            });
           });
-        });
+        }
       });
     });
 
-    // Fetch orders for current user (as seller)
-    this.ordersService.getAllOrders().subscribe(data => {
-      data.forEach((item: any) => {
-        this.addressService.getAddressById(item.addressId).subscribe(address => {
-          item.address = address;
+    // Seller
+    this.ordersService.getAllOrders().subscribe((allOrdersArray: any) => {
+      this.incomingOrders = [];
+      allOrdersArray.forEach((item: any) => {
+        this.addressService.getAddressById(item.addressId).subscribe((address: any) => {
+          item.address = address.data;
         });
-        item.orderItems = item.orderItems.filter((p: any) => p.product.sellerUserId == this.currentUserId);
-        item.orderItems.forEach((orderItem: any) => {
-          this.authService.getUser(orderItem.product.sellerUserId).subscribe(user => {
-            orderItem.product.sellerPhone = user.phoneNumber;
+        if (Array.isArray(item.orderItems)) {
+          item.orderItems = item.orderItems.filter((p: any) => p.product.sellerUserId == this.currentUserId);
+          item.orderItems.forEach((orderItem: any) => {
+            this.authService.getUser(orderItem.product.sellerUserId).subscribe((user: any) => {
+              orderItem.product.sellerPhone = user.phoneNumber;
+            });
           });
-        });
-        if (item.orderItems.length > 0) {
+        }
+        if (item.orderItems && item.orderItems.length > 0) {
           this.incomingOrders.push(item);
         }
       });
     });
   }
 
-  // Update order status to shipped
-  orderShipped(order: Order | any) {
-    this.ordersService.updateOrderToShippedById(order.id, order).subscribe(() => {
-      order.status = 2;
-      this.toastr.success('Product has been shipped');
+  orderShipped(order: Order | any, pid?: number) {
+    const obs = pid ? this.ordersService.updateOrderToShippedProductById(order.id, order, pid) : this.ordersService.updateOrderToShippedById(order.id, order);
+    obs.subscribe((data: any) => {
       // Send mail to buyer with detailed HTML
-      this.authService.getUser(order.userId).subscribe(user => {
+      this.authService.getUser(order.userId).subscribe((user: any) => {
         const productsHtml = `
           <table style='width: 100%; border: 1px solid #000; border-collapse: collapse;'>
             <thead>
@@ -120,28 +128,28 @@ export class MyOrdersComponent implements OnInit {
           Your order #${order.id} has been shipped. You can track your order from your account.<br/><br/>
           Thank you for shopping with Localmart!<br/><br/>Localmart Team
         `;
-        const mail = {
+        const mail: Mail = {
           to: user.email,
           subject: 'Localmart | Your order has been shipped.',
           body: productsHtml
         };
         this.mailService.sendMail(mail).subscribe(
-          () => this.logger.logInfo('Mail sent to buyer for shipped order', order.id),
-          error => this.logger.logError('Error sending mail to buyer for shipped order', error)
+          () => this.logger.logInfo('Mail sent to buyer for shipped order', { orderId: order.id }),
+          (error: any) => this.logger.logError('Error sending mail to buyer for shipped order', error)
         );
       });
+      this.toastr.success('Product has been shipped.');
+      this.loadOrders();
     });
   }
 
-  // Update order status to delivered
-  orderDelivered(order: Order | any) {
-    this.ordersService.updateOrderToDeliveredById(order.id, order).subscribe(() => {
-      order.status = 3;
-      this.toastr.success('Product has been delivered');
+  orderDelivered(order: Order | any, pid?: number) {
+    const obs = pid ? this.ordersService.updateOrderToDeliveredProductById(order.id, order, pid) : this.ordersService.updateOrderToDeliveredById(order.id, order);
+    obs.subscribe((data: any) => {
       // Send mail to seller with detailed HTML
       if (order.orderItems && order.orderItems.length > 0) {
         const sellerId = order.orderItems[0].product.sellerUserId;
-        this.authService.getUser(sellerId).subscribe(user => {
+        this.authService.getUser(sellerId).subscribe((user: any) => {
           const sellerItems = order.orderItems.filter((item: any) => item.product.sellerUserId === sellerId);
           const newTotalPrice = sellerItems.reduce((sum: number, item: any) => sum + (item.product?.discountedPrice ?? 0), 0);
           const productsHtml = `
@@ -188,17 +196,19 @@ export class MyOrdersComponent implements OnInit {
             Your product in order #${order.id} has been delivered to the buyer.<br/><br/>
             Thank you for using Localmart!<br/><br/>Localmart Team
           `;
-          const mail = {
+          const mail: Mail = {
             to: user.email,
             subject: 'Localmart | Your product has been delivered.',
             body: productsHtml
           };
           this.mailService.sendMail(mail).subscribe(
-            () => this.logger.logInfo('Mail sent to seller for delivered order', order.id),
-            error => this.logger.logError('Error sending mail to seller for delivered order', error)
+            () => this.logger.logInfo('Mail sent to seller for delivered order', { orderId: order.id }),
+            (error: any) => this.logger.logError('Error sending mail to seller for delivered order', error)
           );
         });
       }
+      this.toastr.success('Product has been delivered.');
+      this.loadOrders();
     });
   }
 }

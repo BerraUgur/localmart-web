@@ -34,12 +34,14 @@
                         <div>{{ item.product.sellerPhone }}</div>
                         <div>{{ item.product.discountedPrice }} TL</div>
                         <div>
-                            <!-- Order status buttons -->
-                            <button *ngIf="order.status == '1'" class="btn single btn-blue no-hover">Preparing...</button>
-                            <button *ngIf="order.status == '1'" class="btn btn-main" (click)="orderShipped(order)">Shipped</button>
-                            <button *ngIf="order.status == '2'" class="btn single btn-main no-hover">Shipped</button>
-                            <button *ngIf="order.status == '2'" class="btn btn-blue no-hover">Awaiting Delivery</button>
-                            <button *ngIf="order.status == '3'" class="btn btn-green no-hover">Delivered</button>
+                            <!-- Order status buttons for each product -->
+                            <button *ngIf="item.status == '1'"
+                                class="btn single btn-blue no-hover">Preparing...</button>
+                            <button *ngIf="item.status == '1'" class="btn btn-main"
+                                (click)="orderShipped(order, item.productId)">Shipped</button>
+                            <button *ngIf="item.status == '2'" class="btn single btn-main no-hover">Shipped</button>
+                            <button *ngIf="item.status == '2'" class="btn btn-blue no-hover">Awaiting Delivery</button>
+                            <button *ngIf="item.status == '3'" class="btn btn-green no-hover">Delivered</button>
                         </div>
                     </div>
                 </div>
@@ -49,49 +51,45 @@
             <h3>No Orders Found.</h3>
         </div>
         <!-- Buyer Orders Section -->
-        <div class="header-template">
+        <div style="margin-top: 48px;" class="header-template">
             <small>AS A BUYER</small>
             <h2>Your Orders</h2>
         </div>
         <div class="bd-wrapper-4" *ngIf="orders.length > 0">
-                <div *ngFor="let order of orders" class="bd-table basket-table">
-                    <div class="h">
-                        <div>Order No. = {{order.id}}</div>
-                        <div>Product Info</div>
-                        <div>Address</div>
-                        <div>Phone</div>
-                        <div>Price</div>
-                        <div>Order Status</div>
-                    </div>
-                    <div class="b">
-                        <div *ngFor="let item of order.orderItems">
-                            <div>
-                                <img [src]="'http://localhost:5203' + item.product.mainImage"
-                                    alt="{{ item.product.name }}">
-                            </div>
-                            <div>
-                                <strong>{{ item.product.name }}</strong>
-                                <p>{{ item.product.description }}</p>
-                            </div>
-                            <div>{{ item.product.district }} / {{ item.product.city }}</div>
-                            <div>{{ item.product.sellerPhone }}</div>
-                            <div>{{ item.product.discountedPrice }} TL</div>
-                            <div>
-                                <button *ngIf="order.status == '1'"
-                                    class="btn btn-blue no-hover">Preparing...</button>
-
-                                <button *ngIf="order.status == '2'" class="btn single btn-blue no-hover">Shipped</button>
-                                <button *ngIf="order.status == '2'" class="btn btn-main"
-                                    (click)="orderDelivered(order)">I Received</button>
-
-                                <button *ngIf="order.status == '3'" class="btn btn-green no-hover">Received</button>
-                            </div>
+            <div *ngFor="let order of orders" class="bd-table basket-table">
+                <div class="h">
+                    <div>Order No. = {{order.id}}</div>
+                    <div>Product Info</div>
+                    <div>Address</div>
+                    <div>Phone</div>
+                    <div>Price</div>
+                    <div>Order Status</div>
+                </div>
+                <div class="b">
+                    <div *ngFor="let item of order.orderItems">
+                        <div>
+                            <img [src]="'http://localhost:5203' + item.product.mainImage" alt="{{ item.product.name }}">
+                        </div>
+                        <div>
+                            <strong>{{ item.product.name }}</strong>
+                            <p>{{ item.product.description }}</p>
+                        </div>
+                        <div>{{ item.product.district }} / {{ item.product.city }}</div>
+                        <div>{{ item.product.sellerPhone }}</div>
+                        <div>{{ item.product.discountedPrice }} TL</div>
+                        <div>
+                            <button *ngIf="item.status == '1'" class="btn btn-blue no-hover">Preparing...</button>
+                            <button *ngIf="item.status == '2'" class="btn single btn-blue no-hover">Shipped</button>
+                            <button *ngIf="item.status == '2'" class="btn btn-main"
+                                (click)="orderDelivered(order, item.productId)">Received</button>
+                            <button *ngIf="item.status == '3'" class="btn btn-green no-hover">Received</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div *ngIf="orders.length == 0;">
-                <h3>No Orders Found.</h3>
-            </div>
         </div>
-    </section>
+        <div *ngIf="orders.length == 0;">
+            <h3>No Orders Found.</h3>
+        </div>
+    </div>
+</section>

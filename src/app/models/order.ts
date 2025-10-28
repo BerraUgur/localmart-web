@@ -16,4 +16,5 @@ export interface OrderItem {
 	productId?: number;
 	quantity?: number;
 	product: Product;
+	status?: string;
 }
