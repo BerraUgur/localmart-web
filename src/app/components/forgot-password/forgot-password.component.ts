@@ -32,29 +32,23 @@ export class ForgotPasswordComponent {
 
   sendResetLink() {
     if (this.forgotPasswordForm.invalid) {
-      this.toastr.error('Please enter a valid email address.');
+      this.toastr.success('A password reset link has been sent.');
       return;
     }
 
     this.isSubmitting = true;
 
     const email = this.forgotPasswordForm.value.email;
-    const mail = {
-      to: email,
-      subject: 'Password Reset Request',
-      body: `Click the link below to reset your password:
-             http://localhost:4200/reset-password?email=${email}`
-    };
 
-    this.mailService.sendMail(mail).subscribe(
-      (response) => {
-        this.toastr.success('Password reset link has been sent to your email.');
+    this.mailService.sendMail({ to: email }).subscribe(
+      async () => {
+        this.toastr.success('A password reset link has been sent.');
         setTimeout(() => {
           window.location.href = '/login';
         }, 1000);
       },
-      (error: any) => {
-        this.toastr.success('Password reset link has been sent to your email.');
+      async (error: any) => {
+        this.toastr.success('A password reset link has been sent.');
         setTimeout(() => {
           window.location.href = '/login';
         }, 1000);
