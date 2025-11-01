@@ -50,7 +50,7 @@ export class RegisterComponent {
       phoneNumber: this.phoneNumber.toString(),
       username: this.username
     };
-    this.authService.Register(registerRequest).subscribe(
+    this.authService.register(registerRequest).subscribe(
       () => {
         this.router.navigate(['/login']);
       },

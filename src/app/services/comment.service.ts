@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CustomComment } from '../models/comment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class CommentService {
-  private baseUrl: string = 'http://localhost:5203/comments';
+  private baseUrl: string = `${environment.apiUrl}/comments`;
   constructor(private http: HttpClient) { }
 
   getCommentsByProductId(productId: number): Observable<CustomComment[]> {

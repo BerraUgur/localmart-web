@@ -1,16 +1,47 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
 
-# Compiled output
-.angular
-/dist
-/tmp
-/out-tsc
-/bazel-out
+*~
+*.sw[mnpcod]
+.tmp
+*.tmp
+*.tmp.*
+UserInterfaceState.xcuserstate
+$RECYCLE.BIN/
 
 # Node
-/node_modules
+node_modules/
 npm-debug.log
 yarn-error.log
+
+# Ionic
+.ionic/
+www/
+platforms/
+plugins/
+
+# Angular
+.angular/
+.angular/cache/
+.sass-cache/
+
+# Build output
+/dist/
+tmp/
+out-tsc/
+bazel-out/
+coverage/
+.sourcemaps/
+.versions/
+
+# Environment
+.env
+
+# Logs
+*.log
+log.txt
+/libpeerconnection.log
+testem.log
 
 # IDEs and editors
 .idea/
@@ -19,6 +50,7 @@ yarn-error.log
 .c9/
 *.launch
 .settings/
+*.sublime-project
 *.sublime-workspace
 
 # Visual Studio Code
@@ -27,17 +59,26 @@ yarn-error.log
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
-
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
+.history/
 
 # System files
 .DS_Store
 Thumbs.db
+$RECYCLE.BIN/
+UserInterfaceState.xcuserstate
+
+# Android
+android/
+android/.gradle/
+android/.idea/
+android/build/
+android/app/build/
+android/local.properties
+android/capacitor-cordova-android-plugins/
+
+# iOS
+ios/
+
+# Miscellaneous
+/connect.lock
+/typings

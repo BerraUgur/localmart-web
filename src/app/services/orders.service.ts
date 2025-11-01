@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Order } from '../models/order';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Order } from '../models/order';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-  private baseUrl: string = 'http://localhost:5203/orders';
+  constructor(private readonly http: HttpClient) {}
+  private baseUrl: string = `${environment.apiUrl}/auth/send-mail`;
 
-  constructor(private http: HttpClient) {}
 
   getAllOrders(): Observable<Order[]> {
-    return this.http.get<any>(`${this.baseUrl}`).pipe(
+    return this.http.get<any>(this.baseUrl).pipe(
       map(res => res?.data ?? [])
     );
   }

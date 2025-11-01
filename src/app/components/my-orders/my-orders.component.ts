@@ -8,6 +8,7 @@ import { Mail } from '../../models/mail';
 import { MailService } from '../../services/mail.service';
 import { LoggerService } from '../../services/logger.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-my-orders',
@@ -22,6 +23,7 @@ export class MyOrdersComponent implements OnInit {
   allOrders: any = [];
   currentUserId?: number;
   currentUserRole?: string;
+  apiUrl = environment.apiUrl;
 
   constructor(
     private ordersService: OrdersService,

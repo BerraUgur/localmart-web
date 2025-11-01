@@ -11,6 +11,7 @@ import { CustomComment, User } from '../../models/comment';
 import { AuthService } from '../../services/auth.service';
 import { LoggerService } from '../../services/logger.service';
 import { forkJoin } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-product-detail',
@@ -24,6 +25,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
   product: Product | null = null;
   comments?: CustomComment[] = [];
   comment?: string;
+  apiUrl = environment.apiUrl;
 
   // Modal state for single delete
   showDeleteModal: boolean = false;

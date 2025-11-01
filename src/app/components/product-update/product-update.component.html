@@ -10,7 +10,7 @@
       <div class="bd-input" *ngIf="mainImage">
         <label>Main Image Preview:</label>
         <div>
-          <img [src]="mainImage.startsWith('data:') ? mainImage : 'http://localhost:5203' + mainImage" class="preview-img" style="max-width: 300px; max-height: 200px;" />
+          <img [src]="mainImage.startsWith('data:') ? mainImage : apiUrl + mainImage" class="preview-img" style="max-width: 300px; max-height: 200px;" />
         </div>
       </div>
       <!-- Other Images Preview -->
@@ -18,7 +18,7 @@
         <label>Other Images Preview:</label>
         <div class="preview-list">
     <img *ngFor="let img of imagesArr" 
-      [src]="img ? (img.startsWith('data:') ? img : 'http://localhost:5203' + img) : ''"
+      [src]="img ? (img.startsWith('data:') ? img : apiUrl + img) : ''"
       [hidden]="!img" 
       style="max-width: 120px; max-height: 120px; margin-right: 8px;" />
         </div>

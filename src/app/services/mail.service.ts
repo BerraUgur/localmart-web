@@ -4,12 +4,13 @@ import { Observable, pipe } from 'rxjs';
 import { Mail } from '../models/mail';
 import { tap } from 'rxjs/operators';
 import { LoggerService } from './logger.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MailService {
-  private baseUrl: string = 'http://localhost:5203/auth/send-mail';
+  private baseUrl: string = `${environment.apiUrl}/auth/send-mail`;
 
   constructor(private http: HttpClient, private logger: LoggerService) { }
 

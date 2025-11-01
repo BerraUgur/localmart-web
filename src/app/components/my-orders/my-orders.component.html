@@ -18,7 +18,7 @@
                 <div class="b">
                     <div *ngFor="let item of order.orderItems">
                         <div>
-                            <img [src]="'http://localhost:5203' + item.product.mainImage" alt="{{ item.product.name }}">
+                            <img [src]="apiUrl + item.product.mainImage" alt="{{ item.product.name }}">
                         </div>
                         <div>
                             <strong>{{ item.product.name }}</strong>
@@ -68,7 +68,7 @@
                 <div class="b">
                     <div *ngFor="let item of order.orderItems">
                         <div>
-                            <img [src]="'http://localhost:5203' + item.product.mainImage" alt="{{ item.product.name }}">
+                            <img [src]="apiUrl + item.product.mainImage" alt="{{ item.product.name }}">
                         </div>
                         <div>
                             <strong>{{ item.product.name }}</strong>
