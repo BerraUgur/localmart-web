@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
 import { LoggerService } from '../../services/logger.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-products',
@@ -18,6 +19,7 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   filteredProducts: Product[] = [];
   noProducts: boolean = false;
+  apiUrl = environment.apiUrl;
 
   cities: any = []
 

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../../models/comment';
 import { Order } from '../../models/order';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-basket',
@@ -24,6 +25,7 @@ export class BasketComponent implements OnInit {
   currentBasket: any = [];
   currentUserId?: number;
   currentUser?: User;
+  apiUrl = environment.apiUrl;
   city: any = '';
   district: any = '';
   postalCode: any = '';

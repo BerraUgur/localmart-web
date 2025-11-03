@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { LoggerService } from '../../services/logger.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-product-update',
@@ -18,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ProductUpdateComponent implements OnInit {
   productForm: FormGroup;
   productId?: number;
+  apiUrl = environment.apiUrl;
 
   mainImage: string = '';
   imagesArr: string[] = [];

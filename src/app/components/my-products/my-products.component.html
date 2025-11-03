@@ -7,7 +7,7 @@
             <a *ngFor="let product of products" routerLink="/product-detail/{{ product.id }}"
                 class="content-template-2">
                 <div class="img">
-                    <img src="http://localhost:5203{{ product.mainImage }}" alt="{{ product.name }}" width="150">
+                    <img [src]="apiUrl + product.mainImage" alt="{{ product.name }}" width="150">
                 </div>
                 <div class="detail">
                     <strong>{{ product.name }}</strong>

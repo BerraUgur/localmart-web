@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { LoggerService } from '../../services/logger.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-my-products',
@@ -18,6 +19,7 @@ import { RouterModule } from '@angular/router';
 export class MyProductsComponent implements OnInit {
   products: Product[] = [];
   noProducts: boolean = false;
+  apiUrl = environment.apiUrl;
   private toastr = inject(ToastrService);
   constructor(private productService: ProductService, private authService: AuthService, private logger: LoggerService) { }
 

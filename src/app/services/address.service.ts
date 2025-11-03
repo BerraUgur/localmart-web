@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { LoggerService } from './logger.service';
 import { Address } from '../models/address';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AddressService {
-  private baseUrl: string = 'http://localhost:5203/address';
+  private baseUrl: string = `${environment.apiUrl}/address`;
   constructor(private http: HttpClient, private logger: LoggerService) { }
 
   getAddressByProductId(productId: number): Observable<Address[]> {

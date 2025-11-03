@@ -13,7 +13,7 @@
                     <div class="b">
                         <div *ngFor="let product of products">
                             <div>
-                                <img [src]="'http://localhost:5203' + product?.mainImage" alt="{{ product?.name }}">
+                                <img [src]="apiUrl + product?.mainImage" alt="{{ product?.name }}">
                             </div>
                             <div>
                                 <strong>{{ product?.name }}</strong>
