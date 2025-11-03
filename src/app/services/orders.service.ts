@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class OrdersService {
   constructor(private readonly http: HttpClient) {}
-  private baseUrl: string = `${environment.apiUrl}/auth/send-mail`;
+  private baseUrl: string = `${environment.apiUrl}/orders`;
 
 
   getAllOrders(): Observable<Order[]> {
