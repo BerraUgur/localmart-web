@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5203',
+  apiUrl: 'https://localmart-api.onrender.com',
   apiVersion: 'v1',
   enableLogging: true,
   tokenKey: 'token',
