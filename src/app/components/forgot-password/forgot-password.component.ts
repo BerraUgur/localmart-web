@@ -40,7 +40,21 @@ export class ForgotPasswordComponent {
 
     const email = this.forgotPasswordForm.value.email;
 
-    this.mailService.sendMail({ to: email }).subscribe(
+    const emailBody = `
+      <h2>Password Reset Request</h2>
+      <p>Hello,</p>
+      <p>We received a request to reset your password for your Localmart account.</p>
+      <p>If you did not request a password reset, please ignore this email.</p>
+      <br/>
+      <p>Thank you,</p>
+      <p>Localmart Team</p>
+    `;
+
+    this.mailService.sendMail({ 
+      to: email,
+      subject: 'Localmart | Password Reset Request',
+      body: emailBody
+    }).subscribe(
       async () => {
         this.toastr.success('A password reset link has been sent.');
         setTimeout(() => {
