@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MailService } from '../../services/mail.service';
+import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -21,7 +21,7 @@ export class ForgotPasswordComponent {
 
   constructor(
     private fb: FormBuilder,
-    private mailService: MailService,
+    private authService: AuthService,
     private toastr: ToastrService,
     private logger: LoggerService
   ) {
@@ -40,34 +40,22 @@ export class ForgotPasswordComponent {
 
     const email = this.forgotPasswordForm.value.email;
 
-    const emailBody = `
-      <h2>Password Reset Request</h2>
-      <p>Hello,</p>
-      <p>We received a request to reset your password for your Localmart account.</p>
-      <p>If you did not request a password reset, please ignore this email.</p>
-      <br/>
-      <p>Thank you,</p>
-      <p>Localmart Team</p>
-    `;
-
-    this.mailService.sendMail({ 
-      to: email,
-      subject: 'Localmart | Password Reset Request',
-      body: emailBody
-    }).subscribe(
-      async () => {
+    this.authService.requestPasswordReset(email).subscribe({
+      next: async () => {
         this.toastr.success('A password reset link has been sent.');
+        this.isSubmitting = false;
         setTimeout(() => {
           window.location.href = '/login';
         }, 1000);
       },
-      async (error: any) => {
+      error: async (err: any) => {
         this.toastr.success('A password reset link has been sent.');
+        this.isSubmitting = false;
         setTimeout(() => {
           window.location.href = '/login';
         }, 1000);
-        this.logger.logError('Error sending password reset email:', error);
+        this.logger.logError('Error sending password reset email:', err);
       }
-    );
+    });
   }
 }
