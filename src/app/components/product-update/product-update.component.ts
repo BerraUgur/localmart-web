@@ -49,6 +49,14 @@ export class ProductUpdateComponent implements OnInit {
     });
   }
 
+  getImageUrl(imagePath: string | null | undefined): string {
+    if (!imagePath) return 'assets/images/placeholder.png';
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://') || imagePath.startsWith('data:')) {
+      return imagePath;
+    }
+    return `${this.apiUrl}${imagePath}`;
+  }
+
   ngOnInit() {
     this.productId = +this.route.snapshot.paramMap.get('id')!;
     this.productService.getProductById(this.productId).subscribe(

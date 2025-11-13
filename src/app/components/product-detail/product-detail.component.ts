@@ -55,6 +55,16 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
     private logger: LoggerService
   ) { }
 
+  getImageUrl(imagePath: string | null | undefined): string {
+    if (!imagePath) return 'assets/images/placeholder.png';
+    // If URL already starts with http/https, it's a full Cloudinary URL
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
+    }
+    // Otherwise, it's a local/old image, prepend API URL
+    return `${this.apiUrl}${imagePath}`;
+  }
+
   ngOnInit() {
     const productId = +this.route.snapshot.paramMap.get('id')!;
     this.productService.getProductById(productId).subscribe(

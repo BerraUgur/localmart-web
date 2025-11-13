@@ -25,6 +25,14 @@ export class MyProductsComponent implements OnInit {
 
   currentUserId?: number;
 
+  getImageUrl(imagePath: string | null | undefined): string {
+    if (!imagePath) return 'assets/images/placeholder.png';
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
+    }
+    return `${this.apiUrl}${imagePath}`;
+  }
+
   ngOnInit() {
     this.currentUserId = this.authService.getCurrentUserId();
 

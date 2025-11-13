@@ -24,7 +24,7 @@
         <div class="bd-wrapper-1" *ngIf="filteredProducts.length > 0">
             <a *ngFor="let product of filteredProducts" routerLink="/product-detail/{{ product.id }}" class="content-template-2">
                 <div class="img">
-                    <img [src]="apiUrl + product.mainImage" alt="{{ product.name }}" width="150">
+                    <img [src]="getImageUrl(product.mainImage)" alt="{{ product.name }}" width="150">
                 </div>
                 <div class="detail">
                     <strong>{{ product.name }}</strong>

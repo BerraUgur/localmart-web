@@ -34,6 +34,14 @@ export class MyOrdersComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
+  getImageUrl(imagePath: string | null | undefined): string {
+    if (!imagePath) return 'assets/images/placeholder.png';
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
+    }
+    return `${this.apiUrl}${imagePath}`;
+  }
+
   ngOnInit(): void {
     this.loadOrders();
   }

@@ -10,7 +10,7 @@
       <div class="bd-input" *ngIf="mainImage">
         <label>Main Image Preview:</label>
         <div>
-          <img [src]="mainImage.startsWith('data:') ? mainImage : apiUrl + mainImage" class="preview-img" style="max-width: 300px; max-height: 200px;" />
+          <img [src]="getImageUrl(mainImage)" class="preview-img" style="max-width: 300px; max-height: 200px;" />
         </div>
       </div>
       <!-- Other Images Preview -->

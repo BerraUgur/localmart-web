@@ -27,6 +27,14 @@ export class ProductsComponent implements OnInit {
   private logger = inject(LoggerService);
   constructor(private productService: ProductService) { }
 
+  getImageUrl(imagePath: string | null | undefined): string {
+    if (!imagePath) return 'assets/images/placeholder.png';
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
+    }
+    return `${this.apiUrl}${imagePath}`;
+  }
+
   ngOnInit() {
     // Fetch all products and extract unique cities
     this.productService.getAllProducts().subscribe(
